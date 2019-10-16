@@ -6,8 +6,8 @@
 //  Copyright © 2019 Facebook. All rights reserved.
 //
 
-#import "ContextMenuAction.h"
+#import "RnContextMenuAction.h"
 
-@implementation ContextMenuAction
+@implementation RnContextMenuAction
 
 @end

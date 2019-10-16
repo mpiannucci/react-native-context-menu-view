@@ -8,12 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import <React/RCTComponent.h>
-#import "ContextMenuAction.h"
+#import "RnContextMenuAction.h"
 
-@interface ContextMenuView : UIView<UIContextMenuInteractionDelegate>
+@interface RnContextMenuView : UIView<UIContextMenuInteractionDelegate>
 
 @property (nonatomic, copy) NSString* title;
 @property (nonatomic, copy) RCTBubblingEventBlock onPress;
-@property (nonatomic, copy) NSArray<ContextMenuAction*>* actions;
+@property (nonatomic, copy) NSArray<RnContextMenuAction*>* actions;
 
 @end

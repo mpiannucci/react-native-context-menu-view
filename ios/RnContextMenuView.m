@@ -6,10 +6,10 @@
 //  Copyright © 2019 Facebook. All rights reserved.
 //
 
-#import "ContextMenuView.h"
+#import "RnContextMenuView.h"
 #import <React/UIView+React.h>
 
-@implementation ContextMenuView
+@implementation RnContextMenuView
 
 - (void)insertReactSubview:(UIView *)subview atIndex:(NSInteger)atIndex
 {
@@ -41,7 +41,7 @@
   return [UIContextMenuConfiguration configurationWithIdentifier:nil previewProvider:nil actionProvider:^UIMenu * _Nullable(NSArray<UIMenuElement *> * _Nonnull suggestedActions) {
     NSMutableArray* actions = [[NSMutableArray alloc] init];
     
-    for (ContextMenuAction* thisAction in self.actions) {
+    for (RnContextMenuAction* thisAction in self.actions) {
       UIAction* actionMenuItem = [UIAction actionWithTitle:thisAction.title.capitalizedString image:[UIImage systemImageNamed:thisAction.systemIcon] identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
         if (self.onPress != nil) {
           self.onPress(@{@"name": thisAction.title});

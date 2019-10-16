@@ -8,11 +8,11 @@
 
 #import <React/RCTConvert.h>
 
-#import "ContextMenuAction.h"
+#import "RnContextMenuAction.h"
 
-@interface RCTConvert (ContextMenuAction)
+@interface RCTConvert (RnContextMenuAction)
 
-+(ContextMenuAction*) ContextMenuAction:(id)json;
-+(NSArray<ContextMenuAction*>*) ContextMenuActionArray:(id)json;
++(RnContextMenuAction*) RnContextMenuAction:(id)json;
++(NSArray<RnContextMenuAction*>*) RnContextMenuActionArray:(id)json;
 
 @end
