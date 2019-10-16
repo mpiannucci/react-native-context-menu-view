@@ -10,20 +10,20 @@
 
 @implementation RCTConvert(ContextMenuAction)
 
-+ (RnContextMenuAction*) RnContextMenuAction:(id)json {
++ (ContextMenuAction*) ContextMenuAction:(id)json {
   json = [self NSDictionary:json];
-    RnContextMenuAction* action = [[RnContextMenuAction alloc] init];
+    ContextMenuAction* action = [[ContextMenuAction alloc] init];
   action.title = [self NSString:json[@"title"]];
   action.systemIcon = [self NSString:json[@"systemIcon"]];
   return action;
 }
 
-+(NSArray<RnContextMenuAction*>*) RnContextMenuActionArray:(id)json {
++(NSArray<ContextMenuAction*>*) ContextMenuActionArray:(id)json {
   json = [self NSArray:json];
-  NSMutableArray<RnContextMenuAction*>* actions = [[NSMutableArray alloc] init];
+  NSMutableArray<ContextMenuAction*>* actions = [[NSMutableArray alloc] init];
   
   for (NSDictionary* dict in json) {
-    [actions addObject:[self RnContextMenuAction:dict]];
+    [actions addObject:[self ContextMenuAction:dict]];
   }
   
   return [NSArray arrayWithArray:actions];

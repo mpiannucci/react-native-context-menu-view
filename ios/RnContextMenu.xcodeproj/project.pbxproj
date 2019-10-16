@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B3E7B58A1CC2AC0600A0062D /* RnContextMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = B3E7B5891CC2AC0600A0062D /* RnContextMenu.m */; };
+		B3E7B58A1CC2AC0600A0062D /* ContextMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = B3E7B5891CC2AC0600A0062D /* ContextMenu.m */; };
 		EB9B16492356966200B60549 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EB9B162A2356963600B60549 /* libReact.a */; };
-		EBD0C2DB235692D7009F6408 /* RnContextMenuAction.m in Sources */ = {isa = PBXBuildFile; fileRef = EBD0C2D6235692D7009F6408 /* RnContextMenuAction.m */; };
-		EBD0C2DD235692D7009F6408 /* RnContextMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = EBD0C2D8235692D7009F6408 /* RnContextMenuView.m */; };
+		EBD0C2DB235692D7009F6408 /* ContextMenuAction.m in Sources */ = {isa = PBXBuildFile; fileRef = EBD0C2D6235692D7009F6408 /* ContextMenuAction.m */; };
+		EBD0C2DD235692D7009F6408 /* ContextMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = EBD0C2D8235692D7009F6408 /* ContextMenuView.m */; };
 		EBD0C2DE235692D7009F6408 /* RCTConvert+ContextMenuAction.m in Sources */ = {isa = PBXBuildFile; fileRef = EBD0C2DA235692D7009F6408 /* RCTConvert+ContextMenuAction.m */; };
 /* End PBXBuildFile section */
 
@@ -143,15 +143,15 @@
 
 /* Begin PBXFileReference section */
 		134814201AA4EA6300B7C361 /* libRnContextMenu.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRnContextMenu.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		B3E7B5881CC2AC0600A0062D /* RnContextMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RnContextMenu.h; sourceTree = "<group>"; };
-		B3E7B5891CC2AC0600A0062D /* RnContextMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RnContextMenu.m; sourceTree = "<group>"; };
+		B3E7B5881CC2AC0600A0062D /* ContextMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContextMenu.h; sourceTree = "<group>"; };
+		B3E7B5891CC2AC0600A0062D /* ContextMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContextMenu.m; sourceTree = "<group>"; };
 		EB9B16162356963500B60549 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		EBD0C2D2235692D7009F6408 /* RCTConvert+ContextMenuAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RCTConvert+ContextMenuAction.h"; sourceTree = "<group>"; };
-		EBD0C2D3235692D7009F6408 /* RnContextMenuAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RnContextMenuAction.h; sourceTree = "<group>"; };
+		EBD0C2D3235692D7009F6408 /* ContextMenuAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContextMenuAction.h; sourceTree = "<group>"; };
 		EBD0C2D4235692D7009F6408 /* RnContextMenu.xcworkspace */ = {isa = PBXFileReference; lastKnownFileType = wrapper.workspace; path = RnContextMenu.xcworkspace; sourceTree = "<group>"; };
-		EBD0C2D5235692D7009F6408 /* RnContextMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RnContextMenuView.h; sourceTree = "<group>"; };
-		EBD0C2D6235692D7009F6408 /* RnContextMenuAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RnContextMenuAction.m; sourceTree = "<group>"; };
-		EBD0C2D8235692D7009F6408 /* RnContextMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RnContextMenuView.m; sourceTree = "<group>"; };
+		EBD0C2D5235692D7009F6408 /* ContextMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContextMenuView.h; sourceTree = "<group>"; };
+		EBD0C2D6235692D7009F6408 /* ContextMenuAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContextMenuAction.m; sourceTree = "<group>"; };
+		EBD0C2D8235692D7009F6408 /* ContextMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContextMenuView.m; sourceTree = "<group>"; };
 		EBD0C2DA235692D7009F6408 /* RCTConvert+ContextMenuAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RCTConvert+ContextMenuAction.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -178,15 +178,15 @@
 		58B511D21A9E6C8500147676 = {
 			isa = PBXGroup;
 			children = (
-				EBD0C2D3235692D7009F6408 /* RnContextMenuAction.h */,
-				EBD0C2D6235692D7009F6408 /* RnContextMenuAction.m */,
-				EBD0C2D5235692D7009F6408 /* RnContextMenuView.h */,
-				EBD0C2D8235692D7009F6408 /* RnContextMenuView.m */,
+				EBD0C2D3235692D7009F6408 /* ContextMenuAction.h */,
+				EBD0C2D6235692D7009F6408 /* ContextMenuAction.m */,
+				EBD0C2D5235692D7009F6408 /* ContextMenuView.h */,
+				EBD0C2D8235692D7009F6408 /* ContextMenuView.m */,
 				EBD0C2D2235692D7009F6408 /* RCTConvert+ContextMenuAction.h */,
 				EBD0C2DA235692D7009F6408 /* RCTConvert+ContextMenuAction.m */,
 				EBD0C2D4235692D7009F6408 /* RnContextMenu.xcworkspace */,
-				B3E7B5881CC2AC0600A0062D /* RnContextMenu.h */,
-				B3E7B5891CC2AC0600A0062D /* RnContextMenu.m */,
+				B3E7B5881CC2AC0600A0062D /* ContextMenu.h */,
+				B3E7B5891CC2AC0600A0062D /* ContextMenu.m */,
 				134814211AA4EA7D00B7C361 /* Products */,
 				EB9B16152356963500B60549 /* Frameworks */,
 			);
@@ -401,9 +401,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EBD0C2DD235692D7009F6408 /* RnContextMenuView.m in Sources */,
-				EBD0C2DB235692D7009F6408 /* RnContextMenuAction.m in Sources */,
-				B3E7B58A1CC2AC0600A0062D /* RnContextMenu.m in Sources */,
+				EBD0C2DD235692D7009F6408 /* ContextMenuView.m in Sources */,
+				EBD0C2DB235692D7009F6408 /* ContextMenuAction.m in Sources */,
+				B3E7B58A1CC2AC0600A0062D /* ContextMenu.m in Sources */,
 				EBD0C2DE235692D7009F6408 /* RCTConvert+ContextMenuAction.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

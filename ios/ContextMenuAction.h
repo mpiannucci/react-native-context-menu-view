@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface RnContextMenuAction : NSObject
+@interface ContextMenuAction : NSObject
 
 @property (nonatomic, copy) NSString* title;
 @property (nonatomic, copy) NSString* systemIcon;

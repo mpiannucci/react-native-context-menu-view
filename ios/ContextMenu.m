@@ -1,12 +1,12 @@
-#import "RnContextMenu.h"
-#import "RnContextMenuView.h"
+#import "ContextMenu.h"
+#import "ContextMenuView.h"
 
-@implementation RnContextMenu
+@implementation ContextMenu
 
 RCT_EXPORT_MODULE()
 
 - (UIView *) view {
-  return [[RnContextMenuView alloc] init];
+  return [[ContextMenuView alloc] init];
 }
 
 RCT_EXPORT_VIEW_PROPERTY(title, NSString)
