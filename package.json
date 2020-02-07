@@ -2,7 +2,7 @@
   "name": "react-native-context-menu",
   "title": "React Native Context Menu",
   "version": "1.0.0",
-  "description": "TODO",
+  "description": "Use native context menus from react-native views",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -24,10 +24,10 @@
   "readmeFilename": "README.md",
   "peerDependencies": {
     "react": "^16.8.1",
-    "react-native": ">=0.59.0-rc.0 <1.0.x"
+    "react-native": ">=0.60"
   },
   "devDependencies": {
     "react": "^16.8.3",
-    "react-native": "^0.59.10"
+    "react-native": ">=0.60"
   }
 }
