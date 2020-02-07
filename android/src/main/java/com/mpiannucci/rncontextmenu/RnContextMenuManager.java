@@ -4,12 +4,14 @@ import android.view.ViewGroup;
 
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
+import com.facebook.react.common.MapBuilder;
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.ViewGroupManager;
 import com.facebook.react.uimanager.annotations.ReactProp;
 import com.facebook.react.views.view.ReactViewGroup;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import javax.annotation.Nullable;
 
@@ -45,5 +47,12 @@ public class RnContextMenuManager extends ViewGroupManager<RnContextMenuView> {
         view.setActions(newActions);
     }
 
-
+    @androidx.annotation.Nullable
+    @Override
+    public Map<String, Object> getExportedCustomDirectEventTypeConstants() {
+        return MapBuilder.<String, Object>builder()
+                .put("onPress", MapBuilder.of("registrationName", "onPress"))
+                .put("onCancel", MapBuilder.of("registrationName", "onCancel"))
+                .build();
+    }
 }

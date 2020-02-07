@@ -11,21 +11,30 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.PopupMenu;
 
+import com.facebook.react.bridge.Arguments;
+import com.facebook.react.bridge.ReactContext;
+import com.facebook.react.bridge.ReactContextBaseJavaModule;
+import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.touch.OnInterceptTouchEventListener;
+import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.facebook.react.views.view.ReactViewGroup;
 
 import java.util.List;
 
-public class RnContextMenuView extends ReactViewGroup {
+public class RnContextMenuView extends ReactViewGroup implements PopupMenu.OnMenuItemClickListener, PopupMenu.OnDismissListener {
 
     PopupMenu contextMenu;
 
     GestureDetector gestureDetector;
 
+    boolean cancelled = true;
+
     public RnContextMenuView(final Context context) {
         super(context);
 
         contextMenu = new PopupMenu(getContext(), this);
+        contextMenu.setOnMenuItemClickListener(this);
+        contextMenu.setOnDismissListener(this);
 
         gestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
             @Override
@@ -53,12 +62,32 @@ public class RnContextMenuView extends ReactViewGroup {
         return false;
     }
 
-    void setActions(List<String> actions) {
+    public void setActions(List<String> actions) {
         Menu menu = contextMenu.getMenu();
         menu.clear();
 
         for (String action : actions) {
             menu.add(action);
         }
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem menuItem) {
+        cancelled = false;
+        ReactContext reactContext = (ReactContext) getContext();
+        WritableMap event = Arguments.createMap();
+        event.putString("name", menuItem.getTitle().toString());
+        reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(getId(), "onPress", event);
+        return false;
+    }
+
+    @Override
+    public void onDismiss(PopupMenu popupMenu) {
+        if (cancelled) {
+            ReactContext reactContext = (ReactContext) getContext();
+            reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(getId(), "onCancel", null);
+        }
+
+        cancelled = true;
     }
 }
