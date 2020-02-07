@@ -1,18 +1,21 @@
 package com.mpiannucci.rncontextmenu;
 
-import android.view.View;
+import android.view.ViewGroup;
 
-// AppCompatCheckBox import for React Native pre-0.60:
-import android.support.v7.widget.AppCompatCheckBox;
-// AppCompatCheckBox import for React Native 0.60(+):
-// import androidx.appcompat.widget.AppCompatCheckBox;
-
-import com.facebook.react.uimanager.SimpleViewManager;
+import com.facebook.react.bridge.ReadableArray;
+import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.uimanager.ThemedReactContext;
+import com.facebook.react.uimanager.ViewGroupManager;
+import com.facebook.react.uimanager.annotations.ReactProp;
+import com.facebook.react.views.view.ReactViewGroup;
 
-public class RnContextMenuManager extends SimpleViewManager<View> {
+import java.util.ArrayList;
 
-    public static final String REACT_CLASS = "RnContextMenu";
+import javax.annotation.Nullable;
+
+public class RnContextMenuManager extends ViewGroupManager<RnContextMenuView> {
+
+    public static final String REACT_CLASS = "ContextMenu";
 
     @Override
     public String getName() {
@@ -20,10 +23,27 @@ public class RnContextMenuManager extends SimpleViewManager<View> {
     }
 
     @Override
-    public View createViewInstance(ThemedReactContext c) {
-        // TODO: Implement some actually useful functionality
-        AppCompatCheckBox cb = new AppCompatCheckBox(c);
-        cb.setChecked(true);
-        return cb;
+    public RnContextMenuView createViewInstance(ThemedReactContext context) {
+        RnContextMenuView reactViewGroup = new RnContextMenuView(context);
+        return reactViewGroup;
     }
+
+    @ReactProp(name = "title")
+    public void setTitle(RnContextMenuView view, @Nullable String title) {
+        // TODO: Maybe support this? IDK if its necessary though
+    }
+
+    @ReactProp(name = "actions")
+    public void setActions(RnContextMenuView view, @Nullable ReadableArray actions) {
+        ArrayList<String> newActions = new ArrayList();
+
+        for (int i = 0; i < actions.size(); i++) {
+            ReadableMap action = actions.getMap(i);
+            newActions.add(action.getString("title"));
+        }
+
+        view.setActions(newActions);
+    }
+
+
 }
