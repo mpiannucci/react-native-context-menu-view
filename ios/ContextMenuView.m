@@ -9,7 +9,9 @@
 #import "ContextMenuView.h"
 #import <React/UIView+React.h>
 
-@implementation ContextMenuView
+@implementation ContextMenuView {
+  BOOL cancelled;
+}
 
 - (void)insertReactSubview:(UIView *)subview atIndex:(NSInteger)atIndex
 {
@@ -44,6 +46,7 @@
     for (ContextMenuAction* thisAction in self.actions) {
       UIAction* actionMenuItem = [UIAction actionWithTitle:thisAction.title.capitalizedString image:[UIImage systemImageNamed:thisAction.systemIcon] identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
         if (self.onPress != nil) {
+          self->cancelled = false;
           self.onPress(@{@"name": thisAction.title});
         }
       }];
@@ -53,6 +56,20 @@
                               
     return [UIMenu menuWithTitle:self.title children:actions];
   }];
+}
+
+- (void)contextMenuInteraction:(UIContextMenuInteraction *)interaction willDisplayMenuForConfiguration:(UIContextMenuConfiguration *)configuration animator:(id<UIContextMenuInteractionAnimating>)animator  API_AVAILABLE(ios(13.0)){
+  cancelled = true;
+}
+
+- (void)contextMenuInteraction:(UIContextMenuInteraction *)interaction
+willEndForConfiguration:(UIContextMenuConfiguration *)configuration
+                      animator:(id<UIContextMenuInteractionAnimating>)animator  API_AVAILABLE(ios(13.0)) API_AVAILABLE(ios(13.0)){
+  
+  if (cancelled && self.onCancel) {
+    self.onCancel(@{});
+  }
+  
 }
 
 @end

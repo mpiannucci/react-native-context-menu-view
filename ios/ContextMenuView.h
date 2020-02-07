@@ -14,6 +14,8 @@
 
 @property (nonatomic, copy) NSString* title;
 @property (nonatomic, copy) RCTBubblingEventBlock onPress;
+@property (nonatomic, copy) RCTBubblingEventBlock onCancel;
 @property (nonatomic, copy) NSArray<ContextMenuAction*>* actions;
+
 
 @end
