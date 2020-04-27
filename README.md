@@ -1,10 +1,10 @@
-# react-native-context-menu
+# react-native-context-menu-view
 
 Use native context menu functionality from React Native. On iOS this uses `UIMenu` functionality, and on Android it uses a `PopUpMenu`.
 
 ## Getting started
 
-`$ npm install react-native-context-menu --save`
+`$ npm install react-native-context-menu-view --save`
 
 ### Mostly automatic installation
 
@@ -15,7 +15,7 @@ pod install
 
 ## Usage
 ```javascript
-import ContextMenu from 'react-native-context-menu';
+import ContextMenu from 'react-native-context-menu-view';
 
 // TODO: What to do with the module?
 ```

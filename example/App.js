@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { SafeAreaView, View, StyleSheet } from 'react-native';
-import ContextMenu from 'react-native-context-menu';
+import ContextMenu from 'react-native-context-menu-view';
 
 const App = () => {
   const [color, setColor] = useState('blue');

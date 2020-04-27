@@ -1,6 +1,6 @@
 {
-  "name": "react-native-context-menu",
-  "title": "React Native Context Menu",
+  "name": "react-native-context-menu-view",
+  "title": "React Native Context Menu View",
   "version": "1.0.0",
   "description": "TODO",
   "main": "index.js",
@@ -9,8 +9,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mpiannucci/react-native-context-menu.git",
-    "baseUrl": "https://github.com/mpiannucci/react-native-context-menu"
+    "url": "git+https://github.com/mpiannucci/react-native-context-menu-view.git",
+    "baseUrl": "https://github.com/mpiannucci/react-native-context-menu-view"
   },
   "keywords": [
     "react-native"
