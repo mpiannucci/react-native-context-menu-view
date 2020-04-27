@@ -82,7 +82,7 @@ def configureReactNativePom(def pom) {
         name packageJson.title
         artifactId packageJson.name
         version = packageJson.version
-        group = "com.mpiannucci"
+        group = "com.mpiannucci.reactnativecontextmenu"
         description packageJson.description
         url packageJson.repository.baseUrl
 

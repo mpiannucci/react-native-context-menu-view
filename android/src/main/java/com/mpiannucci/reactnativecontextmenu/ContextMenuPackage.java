@@ -1,4 +1,4 @@
-package com.mpiannucci;
+package com.mpiannucci.reactnativecontextmenu;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -10,7 +10,7 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.uimanager.ViewManager;
 import com.facebook.react.bridge.JavaScriptModule;
 
-public class ReactNativeContextMenuPackage implements ReactPackage {
+public class ContextMenuPackage implements ReactPackage {
     @Override
     public List<NativeModule> createNativeModules(ReactApplicationContext reactContext) {
         return Collections.emptyList();
@@ -18,6 +18,6 @@ public class ReactNativeContextMenuPackage implements ReactPackage {
 
     @Override
     public List<ViewManager> createViewManagers(ReactApplicationContext reactContext) {
-        return Arrays.<ViewManager>asList(new ReactNativeContextMenuManager());
+        return Arrays.<ViewManager>asList(new ContextMenuManager());
     }
 }
