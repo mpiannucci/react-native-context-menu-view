@@ -1,5 +1,5 @@
 import { requireNativeComponent } from 'react-native';
 
-const ReactNativeContextMenu = requireNativeComponent('ReactNativeContextMenu', null);
+const ContextMenu = requireNativeComponent('ContextMenu', null);
 
-export default ReactNativeContextMenu;
+export default ContextMenu;
