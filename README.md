@@ -2,6 +2,8 @@
 
 Use native context menu functionality from React Native. On iOS this uses `UIMenu` functionality, and on Android it uses a `PopUpMenu`.
 
+![context-menu-ios](./assets/context-menu-ios.gif)
+
 ## Getting started
 
 `$ npm install react-native-context-menu-view --save`
