@@ -18,8 +18,6 @@ pod install
 ## Usage
 ```javascript
 import ContextMenu from 'react-native-context-menu-view';
-
-// TODO: What to do with the module?
 ```
 
 More coming soon. 
