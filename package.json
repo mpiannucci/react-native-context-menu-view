@@ -1,9 +1,10 @@
 {
   "name": "react-native-context-menu-view",
   "title": "React Native Context Menu View",
-  "version": "1.0.1",
-  "description": "TODO",
+  "version": "1.0.2",
+  "description": "Use native context menu views from React Native",
   "main": "index.js",
+  "types": "index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
