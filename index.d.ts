@@ -12,7 +12,7 @@ export interface ContextMenuAction {
 	systemIcon?: string;
 }
 
-export interface ContextMenu extends Component {
+export interface ContextMenuProps {
 	/**
 	 * The title of the menu
 	 */
@@ -30,3 +30,5 @@ export interface ContextMenu extends Component {
 	 */
 	onCancel?: () => void;
 }
+
+export default class ContextMenu extends Component<ContextMenuProps> {}
