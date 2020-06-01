@@ -32,7 +32,7 @@ const Example = () => {
         );
       }}
     >
-      <View style={styles.yourOwnStyles}>
+      <View style={styles.yourOwnStyles} />
     </ContextMenu>
   );
 };
