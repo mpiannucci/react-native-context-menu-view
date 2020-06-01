@@ -12,6 +12,11 @@ export interface ContextMenuAction {
 	systemIcon?: string;
 }
 
+export interface ContextMenuOnPressNativeEvent {
+	index: number;
+	name: string;
+}
+
 export interface ContextMenuProps {
 	/**
 	 * The title of the menu
@@ -24,7 +29,7 @@ export interface ContextMenuProps {
 	/**
 	 * Handle when an action is triggered and the menu is closed. The name of the selected action will be passed in the event. 
 	 */
-	onPress?: (e: NativeSyntheticEvent<{name: string}>) => void;
+	onPress?: (e: NativeSyntheticEvent<ContextMenuOnPressNativeEvent>) => void;
 	/**
 	 * Handle when the menu is cancelled and closed
 	 */

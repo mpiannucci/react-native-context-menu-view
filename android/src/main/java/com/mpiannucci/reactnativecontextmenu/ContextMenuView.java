@@ -66,8 +66,11 @@ public class ContextMenuView extends ReactViewGroup implements PopupMenu.OnMenuI
         Menu menu = contextMenu.getMenu();
         menu.clear();
 
+        int i = 0;
         for (String action : actions) {
-            menu.add(action);
+            int order = i;
+            menu.add(Menu.NONE, Menu.NONE, order, action);
+            i += 1;
         }
     }
 
@@ -76,6 +79,7 @@ public class ContextMenuView extends ReactViewGroup implements PopupMenu.OnMenuI
         cancelled = false;
         ReactContext reactContext = (ReactContext) getContext();
         WritableMap event = Arguments.createMap();
+        event.putInt("index", menuItem.getOrder());
         event.putString("name", menuItem.getTitle().toString());
         reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(getId(), "onPress", event);
         return false;
