@@ -14,6 +14,8 @@ import android.widget.PopupMenu;
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
+import com.facebook.react.bridge.ReadableArray;
+import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.touch.OnInterceptTouchEventListener;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
@@ -21,7 +23,19 @@ import com.facebook.react.views.view.ReactViewGroup;
 
 import java.util.List;
 
+import javax.annotation.Nullable;
+
 public class ContextMenuView extends ReactViewGroup implements PopupMenu.OnMenuItemClickListener, PopupMenu.OnDismissListener {
+
+    public class Action {
+        String title;
+        boolean disabled;
+
+        public Action(String title, boolean disabled) {
+            this.title = title;
+            this.disabled = disabled;
+        }
+    }
 
     PopupMenu contextMenu;
 
@@ -62,15 +76,15 @@ public class ContextMenuView extends ReactViewGroup implements PopupMenu.OnMenuI
         return false;
     }
 
-    public void setActions(List<String> actions) {
+    public void setActions(@Nullable ReadableArray actions) {
         Menu menu = contextMenu.getMenu();
         menu.clear();
 
-        int i = 0;
-        for (String action : actions) {
+        for (int i = 0; i < actions.size(); i++) {
+            ReadableMap action = actions.getMap(i);
             int order = i;
-            menu.add(Menu.NONE, Menu.NONE, order, action);
-            i += 1;
+            menu.add(Menu.NONE, Menu.NONE, order, action.getString("title"));
+            menu.getItem(i).setEnabled(!action.hasKey("disabled") || !action.getBoolean("disabled"));
         }
     }
 

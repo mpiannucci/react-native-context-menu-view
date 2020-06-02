@@ -21,7 +21,7 @@ export interface ContextMenuProps {
 	/**
 	 * The title of the menu
 	 */
-	title?: string;
+	title: string;
 	/**
 	 * The actions to show the user when the menu is activated
 	 */

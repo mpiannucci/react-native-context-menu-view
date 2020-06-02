@@ -48,7 +48,11 @@ Optional. The title above the popup menu.
 
 ###### `actions`
 
-Array of `{ title?: string, systemIcon?: string }`. System icon refers to an icon name within [SF Symbols](https://developer.apple.com/design/human-interface-guidelines/sf-symbols/overview/).
+Array of `{ title: string, systemIcon?: string, destructive?: boolean, disabled?: boolean }`.
+
+System icon refers to an icon name within [SF Symbols](https://developer.apple.com/design/human-interface-guidelines/sf-symbols/overview/).
+
+Destructive items are rendered in red on iOS, and unchanged on Android.
 
 ###### `onPress`
 
