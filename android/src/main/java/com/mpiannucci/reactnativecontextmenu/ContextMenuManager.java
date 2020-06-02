@@ -37,14 +37,7 @@ public class ContextMenuManager extends ViewGroupManager<ContextMenuView> {
 
     @ReactProp(name = "actions")
     public void setActions(ContextMenuView view, @Nullable ReadableArray actions) {
-        ArrayList<String> newActions = new ArrayList();
-
-        for (int i = 0; i < actions.size(); i++) {
-            ReadableMap action = actions.getMap(i);
-            newActions.add(action.getString("title"));
-        }
-
-        view.setActions(newActions);
+        view.setActions(actions);
     }
 
     @androidx.annotation.Nullable

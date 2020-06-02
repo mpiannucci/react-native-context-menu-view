@@ -54,6 +54,10 @@
         }
       }];
 
+      actionMenuItem.attributes =
+        (thisAction.destructive ? UIMenuElementAttributesDestructive : 0) |
+        (thisAction.disabled ? UIMenuElementAttributesDisabled : 0);
+
       [actions addObject:actionMenuItem];
     }];
                               

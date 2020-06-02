@@ -10,12 +10,21 @@ const App = () => {
       <ContextMenu title={'Set Color'} actions={[
         {
           title: 'blue',
-          systemIcon: color == 'blue' ? 'paintbrush.fill' : 'paintbrush',
+          systemIcon: color === 'blue' ? 'paintbrush.fill' : 'paintbrush',
         },
         {
           title: 'red',
-          systemIcon: color == 'red' ? 'paintbrush.fill' : 'paintbrush'
-        }
+          systemIcon: color === 'red' ? 'paintbrush.fill' : 'paintbrush',
+        },
+        {
+          title: 'transparent',
+          systemIcon: 'trash',
+          destructive: true,
+        },
+        {
+          title: 'disabled item',
+          disabled: true,
+        },
       ]} onPress={(event) => {
         setColor(event.nativeEvent.name);
       }} onCancel={() => { console.warn('CANCELLED') }} >
