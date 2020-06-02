@@ -43,16 +43,23 @@
   return [UIContextMenuConfiguration configurationWithIdentifier:nil previewProvider:nil actionProvider:^UIMenu * _Nullable(NSArray<UIMenuElement *> * _Nonnull suggestedActions) {
     NSMutableArray* actions = [[NSMutableArray alloc] init];
     
-    for (ContextMenuAction* thisAction in self.actions) {
+    [self.actions enumerateObjectsUsingBlock:^(ContextMenuAction* thisAction, NSUInteger idx, BOOL *stop) {
       UIAction* actionMenuItem = [UIAction actionWithTitle:thisAction.title.capitalizedString image:[UIImage systemImageNamed:thisAction.systemIcon] identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
         if (self.onPress != nil) {
           self->cancelled = false;
-          self.onPress(@{@"name": thisAction.title});
+          self.onPress(@{
+            @"index": @(idx),
+            @"name": thisAction.title,
+          });
         }
       }];
-      
+
+      actionMenuItem.attributes =
+        (thisAction.destructive ? UIMenuElementAttributesDestructive : 0) |
+        (thisAction.disabled ? UIMenuElementAttributesDisabled : 0);
+
       [actions addObject:actionMenuItem];
-    }
+    }];
                               
     return [UIMenu menuWithTitle:self.title children:actions];
   }];

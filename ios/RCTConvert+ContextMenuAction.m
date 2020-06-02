@@ -15,6 +15,8 @@
     ContextMenuAction* action = [[ContextMenuAction alloc] init];
   action.title = [self NSString:json[@"title"]];
   action.systemIcon = [self NSString:json[@"systemIcon"]];
+  action.destructive = [self BOOL:json[@"destructive"]];
+  action.disabled = [self BOOL:json[@"disabled"]];
   return action;
 }
 
