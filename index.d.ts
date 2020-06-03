@@ -5,7 +5,7 @@ export interface ContextMenuAction {
 	/**
 	 * The title of the action
 	 */
-	title?: string;
+	title: string;
 	/**
 	 * The icon to use on ios. This is the name of the SFSymbols icon to use. On Android nothing will happen if you set this option. 
 	 */
@@ -21,7 +21,7 @@ export interface ContextMenuProps {
 	/**
 	 * The title of the menu
 	 */
-	title: string;
+	title?: string;
 	/**
 	 * The actions to show the user when the menu is activated
 	 */
