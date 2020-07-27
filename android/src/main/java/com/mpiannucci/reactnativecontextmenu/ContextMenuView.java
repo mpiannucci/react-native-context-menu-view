@@ -73,7 +73,7 @@ public class ContextMenuView extends ReactViewGroup implements PopupMenu.OnMenuI
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
         gestureDetector.onTouchEvent(ev);
-        return false;
+        return true;
     }
 
     public void setActions(@Nullable ReadableArray actions) {
