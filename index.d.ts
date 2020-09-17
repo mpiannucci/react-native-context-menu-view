@@ -10,6 +10,14 @@ export interface ContextMenuAction {
 	 * The icon to use on ios. This is the name of the SFSymbols icon to use. On Android nothing will happen if you set this option. 
 	 */
 	systemIcon?: string;
+	/**
+	 * Destructive items are rendered in red on iOS, and unchanged on Android.
+	 */
+	destructive?: boolean
+	/**
+	* Whether the action is disabled or not
+	*/
+	disabled?: boolean
 }
 
 export interface ContextMenuOnPressNativeEvent {
