@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { NativeSyntheticEvent } from 'react-native';
+import { NativeSyntheticEvent, ViewProps } from 'react-native';
 
 export interface ContextMenuAction {
 	/**
@@ -25,7 +25,7 @@ export interface ContextMenuOnPressNativeEvent {
 	name: string;
 }
 
-export interface ContextMenuProps {
+export interface ContextMenuProps extends ViewProps {
 	/**
 	 * The title of the menu
 	 */
