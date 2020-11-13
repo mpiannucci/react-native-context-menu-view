@@ -14,6 +14,8 @@ import android.widget.PopupMenu;
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
+import com.facebook.react.bridge.ReadableArray;
+import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.touch.OnInterceptTouchEventListener;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
@@ -21,7 +23,19 @@ import com.facebook.react.views.view.ReactViewGroup;
 
 import java.util.List;
 
+import javax.annotation.Nullable;
+
 public class ContextMenuView extends ReactViewGroup implements PopupMenu.OnMenuItemClickListener, PopupMenu.OnDismissListener {
+
+    public class Action {
+        String title;
+        boolean disabled;
+
+        public Action(String title, boolean disabled) {
+            this.title = title;
+            this.disabled = disabled;
+        }
+    }
 
     PopupMenu contextMenu;
 
@@ -59,15 +73,18 @@ public class ContextMenuView extends ReactViewGroup implements PopupMenu.OnMenuI
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
         gestureDetector.onTouchEvent(ev);
-        return false;
+        return true;
     }
 
-    public void setActions(List<String> actions) {
+    public void setActions(@Nullable ReadableArray actions) {
         Menu menu = contextMenu.getMenu();
         menu.clear();
 
-        for (String action : actions) {
-            menu.add(action);
+        for (int i = 0; i < actions.size(); i++) {
+            ReadableMap action = actions.getMap(i);
+            int order = i;
+            menu.add(Menu.NONE, Menu.NONE, order, action.getString("title"));
+            menu.getItem(i).setEnabled(!action.hasKey("disabled") || !action.getBoolean("disabled"));
         }
     }
 
@@ -76,6 +93,7 @@ public class ContextMenuView extends ReactViewGroup implements PopupMenu.OnMenuI
         cancelled = false;
         ReactContext reactContext = (ReactContext) getContext();
         WritableMap event = Arguments.createMap();
+        event.putInt("index", menuItem.getOrder());
         event.putString("name", menuItem.getTitle().toString());
         reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(getId(), "onPress", event);
         return false;

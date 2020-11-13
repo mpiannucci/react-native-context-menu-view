@@ -1,18 +1,31 @@
 import { Component } from 'react';
-import { NativeSyntheticEvent } from 'react-native';
+import { NativeSyntheticEvent, ViewProps } from 'react-native';
 
 export interface ContextMenuAction {
 	/**
 	 * The title of the action
 	 */
-	title?: string;
+	title: string;
 	/**
 	 * The icon to use on ios. This is the name of the SFSymbols icon to use. On Android nothing will happen if you set this option. 
 	 */
 	systemIcon?: string;
+	/**
+	 * Destructive items are rendered in red on iOS, and unchanged on Android.
+	 */
+	destructive?: boolean
+	/**
+	* Whether the action is disabled or not
+	*/
+	disabled?: boolean
 }
 
-export interface ContextMenuProps {
+export interface ContextMenuOnPressNativeEvent {
+	index: number;
+	name: string;
+}
+
+export interface ContextMenuProps extends ViewProps {
 	/**
 	 * The title of the menu
 	 */
@@ -24,7 +37,7 @@ export interface ContextMenuProps {
 	/**
 	 * Handle when an action is triggered and the menu is closed. The name of the selected action will be passed in the event. 
 	 */
-	onPress?: (e: NativeSyntheticEvent<{name: string}>) => void;
+	onPress?: (e: NativeSyntheticEvent<ContextMenuOnPressNativeEvent>) => void;
 	/**
 	 * Handle when the menu is cancelled and closed
 	 */
