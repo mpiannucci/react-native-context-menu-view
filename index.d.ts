@@ -42,6 +42,10 @@ export interface ContextMenuProps extends ViewProps {
 	 * Handle when the menu is cancelled and closed
 	 */
 	onCancel?: () => void;
+  /**
+   * The background color of the preview. This is displayed underneath your view. Set this to transparent (or another color) if the default causes issues.
+   */
+  previewBackgroundColor?: ViewStyle["backgroundColor"];
 }
 
 export default class ContextMenu extends Component<ContextMenuProps> {}
