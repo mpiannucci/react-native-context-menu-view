@@ -38,13 +38,12 @@
   [super layoutSubviews];
 }
 
-- (nullable UIContextMenuConfiguration *)contextMenuInteraction:(nonnull UIContextMenuInteraction *)interaction configurationForMenuAtLocation:(CGPoint)location  API_AVAILABLE(ios(13.0)){
-
+- (nullable UIContextMenuConfiguration *)contextMenuInteraction:(nonnull UIContextMenuInteraction *)interaction configurationForMenuAtLocation:(CGPoint)location API_AVAILABLE(ios(13.0)) {
   return [UIContextMenuConfiguration configurationWithIdentifier:nil previewProvider:nil actionProvider:^UIMenu * _Nullable(NSArray<UIMenuElement *> * _Nonnull suggestedActions) {
     NSMutableArray* actions = [[NSMutableArray alloc] init];
 
     [self.actions enumerateObjectsUsingBlock:^(ContextMenuAction* thisAction, NSUInteger idx, BOOL *stop) {
-      UIAction* actionMenuItem = [UIAction actionWithTitle:thisAction.title.capitalizedString image:[UIImage systemImageNamed:thisAction.systemIcon] identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+      UIAction* actionMenuItem = [UIAction actionWithTitle:thisAction.title image:[UIImage systemImageNamed:thisAction.systemIcon] identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
         if (self.onPress != nil) {
           self->cancelled = false;
           self.onPress(@{
@@ -65,24 +64,23 @@
   }];
 }
 
-- (void)contextMenuInteraction:(UIContextMenuInteraction *)interaction willDisplayMenuForConfiguration:(UIContextMenuConfiguration *)configuration animator:(id<UIContextMenuInteractionAnimating>)animator  API_AVAILABLE(ios(13.0)){
+- (void)contextMenuInteraction:(UIContextMenuInteraction *)interaction willDisplayMenuForConfiguration:(UIContextMenuConfiguration *)configuration animator:(id<UIContextMenuInteractionAnimating>)animator API_AVAILABLE(ios(13.0)) {
   cancelled = true;
 }
 
-- (void)contextMenuInteraction:(UIContextMenuInteraction *)interaction
-willEndForConfiguration:(UIContextMenuConfiguration *)configuration
-                      animator:(id<UIContextMenuInteractionAnimating>)animator  API_AVAILABLE(ios(13.0)) API_AVAILABLE(ios(13.0)){
-
+- (void)contextMenuInteraction:(UIContextMenuInteraction *)interaction willEndForConfiguration:(UIContextMenuConfiguration *)configuration animator:(id<UIContextMenuInteractionAnimating>)animator API_AVAILABLE(ios(13.0)) {
   if (cancelled && self.onCancel) {
     self.onCancel(@{});
   }
-
 }
 
 - (UITargetedPreview *)contextMenuInteraction:(UIContextMenuInteraction *)interaction previewForHighlightingMenuWithConfiguration:(UIContextMenuConfiguration *)configuration API_AVAILABLE(ios(13.0)) {
     UIPreviewTarget* previewTarget = [[UIPreviewTarget alloc] initWithContainer:self center:self.reactSubviews.firstObject.center];
     UIPreviewParameters* previewParams = [[UIPreviewParameters alloc] init];
-    previewParams.backgroundColor = UIColor.clearColor;
+
+    if (_previewBackgroundColor != nil) {
+      previewParams.backgroundColor = _previewBackgroundColor;
+    }
 
     return [[UITargetedPreview alloc] initWithView:self.reactSubviews.firstObject parameters:previewParams target:previewTarget];
 }

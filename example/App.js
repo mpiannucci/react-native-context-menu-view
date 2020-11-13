@@ -4,31 +4,43 @@ import ContextMenu from 'react-native-context-menu-view';
 
 const App = () => {
   const [color, setColor] = useState('blue');
+  const [circle, setCircle] = useState(false)
 
   return (
     <SafeAreaView style={styles.container}>
       <ContextMenu title={'Set Color'} actions={[
         {
-          title: 'blue',
+          title: 'Blue',
           systemIcon: color === 'blue' ? 'paintbrush.fill' : 'paintbrush',
         },
         {
-          title: 'red',
+          title: 'Red',
           systemIcon: color === 'red' ? 'paintbrush.fill' : 'paintbrush',
         },
         {
-          title: 'transparent',
+          title: 'Transparent',
           systemIcon: 'trash',
           destructive: true,
         },
         {
-          title: 'disabled item',
+          title: 'Toggle Circle',
+          systemIcon: 'circlebadge'
+        },
+        {
+          title: 'Disabled Item',
           disabled: true,
         },
       ]} onPress={(event) => {
-        setColor(event.nativeEvent.name);
-      }} onCancel={() => { console.warn('CANCELLED') }} >
-        <View style={[styles.rectangle, {backgroundColor: color }]} />
+        const {index, name} = event.nativeEvent;
+        if (index < 3) {
+          setColor(name.toLowerCase());
+        } else {
+          setCircle(!circle)
+        }
+      }} onCancel={() => {
+        console.warn('CANCELLED')
+      }} previewBackgroundColor="transparent">
+        <View style={[styles.rectangle, {backgroundColor: color, borderRadius: circle ? 999 : 0}]} />
       </ContextMenu>
     </SafeAreaView>
   );
