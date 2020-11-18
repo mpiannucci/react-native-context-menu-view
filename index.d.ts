@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { NativeSyntheticEvent, ViewProps } from 'react-native';
+import { NativeSyntheticEvent, ViewStyle } from 'react-native';
 
 export interface ContextMenuAction {
 	/**
