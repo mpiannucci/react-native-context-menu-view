@@ -11,13 +11,21 @@ export interface ContextMenuAction {
 	 */
 	systemIcon?: string;
 	/**
-	 * Destructive items are rendered in red on iOS, and unchanged on Android.
+	 * Destructive items are rendered in red on iOS, and unchanged on Android. (default: false)
 	 */
-	destructive?: boolean
+	destructive?: boolean;
 	/**
-	* Whether the action is disabled or not
+	* Whether the action is disabled or not (default: false)
 	*/
-	disabled?: boolean
+	disabled?: boolean;
+	/**
+	 * Whether its children (if any) should be rendered inline instead of in their own child menu (default: false, iOS only)
+	 */
+	inlineChildren?: boolean;
+	/**
+	 * Child actions. When child actions are supplied, the childs callback will contain its name but the same index as the topmost parent menu/action index. (iOS Only)
+	 */
+	actions?: Array<ContextMenuAction>;
 }
 
 export interface ContextMenuOnPressNativeEvent {
@@ -42,10 +50,10 @@ export interface ContextMenuProps extends ViewProps {
 	 * Handle when the menu is cancelled and closed
 	 */
 	onCancel?: () => void;
-  /**
-   * The background color of the preview. This is displayed underneath your view. Set this to transparent (or another color) if the default causes issues.
-   */
-  previewBackgroundColor?: ViewStyle["backgroundColor"];
+	/**
+	 * The background color of the preview. This is displayed underneath your view. Set this to transparent (or another color) if the default causes issues.
+	 */
+	previewBackgroundColor?: ViewStyle["backgroundColor"];
 }
 
-export default class ContextMenu extends Component<ContextMenuProps> {}
+export default class ContextMenu extends Component<ContextMenuProps> { }

@@ -8,14 +8,21 @@ const App = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ContextMenu title={'Set Color'} actions={[
+      <ContextMenu title={'Customize'} actions={[
         {
-          title: 'Blue',
-          systemIcon: color === 'blue' ? 'paintbrush.fill' : 'paintbrush',
-        },
-        {
-          title: 'Red',
-          systemIcon: color === 'red' ? 'paintbrush.fill' : 'paintbrush',
+          title: 'Change Color',
+          systemIcon: 'paintbrush',
+          inlineChildren: true,
+          actions: [
+            {
+              title: 'Blue',
+              systemIcon: color === 'blue' ? 'paintbrush.fill' : 'paintbrush',
+            },
+            {
+              title: 'Red',
+              systemIcon: color === 'red' ? 'paintbrush.fill' : 'paintbrush',
+            },
+          ]
         },
         {
           title: 'Transparent',
@@ -42,6 +49,7 @@ const App = () => {
       }} previewBackgroundColor="transparent">
         <View style={[styles.rectangle, {backgroundColor: color, borderRadius: circle ? 999 : 0}]} />
       </ContextMenu>
+      <View style={{color: 'red', height: 100, width: 100}} />
     </SafeAreaView>
   );
 }

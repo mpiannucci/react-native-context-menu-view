@@ -3,7 +3,7 @@
 //  reactnativeuimenu
 //
 //  Created by Matthew Iannucci on 10/7/19.
-//  Copyright © 2019 Facebook. All rights reserved.
+//  Copyright © 2019 Matthew Iannucci. All rights reserved.
 //
 
 #import <React/RCTConvert.h>
