@@ -48,15 +48,17 @@ Optional. The title above the popup menu.
 
 ###### `actions`
 
-Array of `{ title: string, systemIcon?: string, destructive?: boolean, disabled?: boolean }`.
+Array of `{ title: string, systemIcon?: string, destructive?: boolean, disabled?: boolean, inlineChildren?: boolean, children?: Array<ContextMenuAction> }`.
 
 System icon refers to an icon name within [SF Symbols](https://developer.apple.com/design/human-interface-guidelines/sf-symbols/overview/).
 
 Destructive items are rendered in red on iOS, and unchanged on Android.
 
+Nested menus are supported on iOS only and result in nested UIMenu which can be optionally displayed inline. 
+
 ###### `onPress`
 
-Optional. When the popup is opened and the user picks an option. Called with `{ nativeEvent: { index, name } }`.
+Optional. When the popup is opened and the user picks an option. Called with `{ nativeEvent: { index, name } }`. When a nested action is selected the top level parent index is used for the callback. 
 
 ###### `onCancel`
 
