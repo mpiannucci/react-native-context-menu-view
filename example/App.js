@@ -39,7 +39,7 @@ const App = () => {
         },
       ]} onPress={(event) => {
         const {index, name} = event.nativeEvent;
-        if (index < 3) {
+        if (index == 0) {
           setColor(name.toLowerCase());
         } else {
           setCircle(!circle)
