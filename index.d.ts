@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import { NativeSyntheticEvent, ViewProps, ViewStyle } from 'react-native';
 
 export interface ContextMenuAction {
@@ -54,6 +54,10 @@ export interface ContextMenuProps extends ViewProps {
 	 * The background color of the preview. This is displayed underneath your view. Set this to transparent (or another color) if the default causes issues.
 	 */
 	previewBackgroundColor?: ViewStyle["backgroundColor"];
+	/**
+	 * Custom preview component.
+	 */
+	preview?: React.ReactNode;
 }
 
 export default class ContextMenu extends Component<ContextMenuProps> { }
