@@ -21,11 +21,20 @@
 
 - (void)insertReactSubview:(UIView *)subview atIndex:(NSInteger)atIndex
 {
-  [super insertReactSubview:subview atIndex:atIndex];
   if (@available(iOS 13.0, *)) {
-    UIContextMenuInteraction* contextInteraction = [[UIContextMenuInteraction alloc] initWithDelegate:self];
+    if (atIndex == 0) {
+      [super insertReactSubview:subview atIndex:atIndex];
 
-    [subview addInteraction:contextInteraction];
+      UIContextMenuInteraction* contextInteraction = [[UIContextMenuInteraction alloc] initWithDelegate:self];
+
+      [subview addInteraction:contextInteraction];
+    }
+
+    if (atIndex == 1) {
+      self.customView = subview;
+    }
+  } else {
+    [super insertReactSubview:subview atIndex:atIndex];
   }
 }
 
@@ -45,7 +54,12 @@
 }
 
 - (nullable UIContextMenuConfiguration *)contextMenuInteraction:(nonnull UIContextMenuInteraction *)interaction configurationForMenuAtLocation:(CGPoint)location API_AVAILABLE(ios(13.0)) {
-  return [UIContextMenuConfiguration configurationWithIdentifier:nil previewProvider:nil actionProvider:^UIMenu * _Nullable(NSArray<UIMenuElement *> * _Nonnull suggestedActions) {
+  return [UIContextMenuConfiguration configurationWithIdentifier:nil previewProvider: self.customView == nil ? nil : ^(){
+        UIViewController* viewController = [[UIViewController alloc] init];
+        viewController.preferredContentSize = self.customView.frame.size;
+        viewController.view = self.customView;
+        return viewController;
+    } actionProvider:^UIMenu * _Nullable(NSArray<UIMenuElement *> * _Nonnull suggestedActions) {
     NSMutableArray* actions = [[NSMutableArray alloc] init];
 
     [self.actions enumerateObjectsUsingBlock:^(ContextMenuAction* thisAction, NSUInteger idx, BOOL *stop) {

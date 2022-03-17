@@ -49,6 +49,17 @@ const App = () => {
       }} previewBackgroundColor="transparent">
         <View style={[styles.rectangle, {backgroundColor: color, borderRadius: circle ? 999 : 0}]} />
       </ContextMenu>
+      <ContextMenu
+        title={'Custom Preview'}
+        actions={[
+          {
+            title: 'Test Item',
+          },
+        ]}
+        previewBackgroundColor="transparent">
+        <View style={[styles.rectangle, {backgroundColor: 'red'}]} />
+        <View style={[styles.rectangle, {backgroundColor: 'green'}]} />
+      </ContextMenu>
       <View style={{color: 'red', height: 100, width: 100}} />
     </SafeAreaView>
   );
