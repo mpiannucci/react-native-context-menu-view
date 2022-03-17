@@ -1,5 +1,15 @@
-import { requireNativeComponent } from 'react-native';
+import React from "react";
+import { requireNativeComponent, View } from "react-native";
 
-const ContextMenu = requireNativeComponent('ContextMenu', null);
+const NativeContextMenu = requireNativeComponent("ContextMenu", null);
+
+const ContextMenu = (props) => {
+  return (
+    <NativeContextMenu {...props}>
+      <View>{props.children}</View>
+      {props.preview}
+    </NativeContextMenu>
+  );
+};
 
 export default ContextMenu;

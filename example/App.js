@@ -56,9 +56,9 @@ const App = () => {
             title: 'Test Item',
           },
         ]}
-        previewBackgroundColor="transparent">
+        previewBackgroundColor="transparent"
+        preview={<View style={[styles.rectangle, {backgroundColor: 'green'}]} />}>
         <View style={[styles.rectangle, {backgroundColor: 'red'}]} />
-        <View style={[styles.rectangle, {backgroundColor: 'green'}]} />
       </ContextMenu>
       <View style={{color: 'red', height: 100, width: 100}} />
     </SafeAreaView>
