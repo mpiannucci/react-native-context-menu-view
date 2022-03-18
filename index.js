@@ -6,8 +6,10 @@ const NativeContextMenu = requireNativeComponent("ContextMenu", null);
 const ContextMenu = (props) => {
   return (
     <NativeContextMenu {...props}>
-      <View>{props.children}</View>
-      {props.preview}
+      {props.children}
+      {props.preview != null ? (
+        <View nativeID="ContextMenuPreview">{props.preview}</View>
+      ) : null}
     </NativeContextMenu>
   );
 };
