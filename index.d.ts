@@ -58,6 +58,10 @@ export interface ContextMenuProps extends ViewProps {
 	 * Custom preview component.
 	 */
 	preview?: React.ReactNode;
+	/**
+	 * When enabled, uses iOS 14 menu mode, and shows the context menu on a single tap with no zoomed preview.
+	 */
+	 asMenuControl?: boolean;
 }
 
 export default class ContextMenu extends Component<ContextMenuProps> { }
