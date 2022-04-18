@@ -67,3 +67,7 @@ Optional. When the popop is opened and the user cancels.
 ###### `previewBackgroundColor`
 
 Optional. The background color of the preview. This is displayed underneath your view. Set this to transparent (or another color) if the default causes issues.
+
+###### `dropdownMenuMode`
+
+Optional. When set to `true`, the context menu is triggered with a single tap instead of a long press, and a preview is not show and no blur occurs. Uses the iOS 14 Menu API and a simple tap listener on android. 

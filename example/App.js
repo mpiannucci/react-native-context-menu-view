@@ -38,7 +38,7 @@ const App = () => {
           disabled: true,
         },
       ]} onPress={(event) => {
-        const {index, name} = event.nativeEvent;
+        const { index, name } = event.nativeEvent;
         if (index == 0) {
           setColor(name.toLowerCase());
         } else {
@@ -47,8 +47,25 @@ const App = () => {
       }} onCancel={() => {
         console.warn('CANCELLED')
       }} previewBackgroundColor="transparent">
-        <View style={[styles.rectangle, {backgroundColor: color, borderRadius: circle ? 999 : 0}]} />
+        <View style={[styles.rectangle, { backgroundColor: color, borderRadius: circle ? 999 : 0 }]} />
       </ContextMenu>
+
+      <View style={styles.spacer} />
+
+      <ContextMenu
+        title={'Dropdown Menu'}
+        actions={[
+          {
+            title: 'Test Item',
+          }
+        ]}
+        dropdownMenuMode={true}
+      >
+        <View style={[styles.rectangle, { backgroundColor: 'purple' }]} />
+      </ContextMenu>
+
+      <View style={styles.spacer} />
+
       <ContextMenu
         title={'Custom Preview'}
         actions={[
@@ -57,10 +74,9 @@ const App = () => {
           },
         ]}
         previewBackgroundColor="transparent"
-        preview={<View style={[styles.rectangle, {backgroundColor: 'green'}]} />}>
-        <View style={[styles.rectangle, {backgroundColor: 'red'}]} />
+        preview={<View style={[styles.rectangle, { backgroundColor: 'green' }]} />}>
+        <View style={[styles.rectangle, { backgroundColor: 'red' }]} />
       </ContextMenu>
-      <View style={{color: 'red', height: 100, width: 100}} />
     </SafeAreaView>
   );
 }
@@ -68,12 +84,15 @@ const App = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignItems: 'center'
   },
   rectangle: {
-    width: 200, 
+    width: 200,
     height: 200,
+  },
+  spacer: {
+    height: 16,
   }
 });
 
