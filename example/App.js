@@ -59,7 +59,7 @@ const App = () => {
             title: 'Test Item',
           }
         ]}
-        asMenuControl={true}
+        dropdownMenuMode={true}
       >
         <View style={[styles.rectangle, { backgroundColor: 'purple' }]} />
       </ContextMenu>
