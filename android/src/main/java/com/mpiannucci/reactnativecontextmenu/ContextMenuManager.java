@@ -40,6 +40,11 @@ public class ContextMenuManager extends ViewGroupManager<ContextMenuView> {
         view.setActions(actions);
     }
 
+    @ReactProp(name = "dropdownMenuMode")
+    public void setDropdownMenuMode(ContextMenuView view, @Nullable boolean enabled) {
+        view.setDropdownMenuMode(enabled);
+    }
+
     @androidx.annotation.Nullable
     @Override
     public Map<String, Object> getExportedCustomDirectEventTypeConstants() {
