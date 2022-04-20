@@ -20,6 +20,18 @@
   UIView *_customView;
 }
 
+- (id) init {
+    self = [super init];
+    
+    if (@available(iOS 14.0, *)) {
+        self.contextMenuInteractionEnabled = true;
+    } else {
+        // Fallback on earlier versions
+    }
+    
+    return self;
+}
+
 - (void)insertReactSubview:(UIView *)subview atIndex:(NSInteger)atIndex
 {
   if ([subview.nativeID isEqualToString:@"ContextMenuPreview"]) {

@@ -43,6 +43,8 @@ public class ContextMenuView extends ReactViewGroup implements PopupMenu.OnMenuI
 
     boolean cancelled = true;
 
+    protected boolean dropdownMenuMode = false;
+
     public ContextMenuView(final Context context) {
         super(context);
 
@@ -52,8 +54,18 @@ public class ContextMenuView extends ReactViewGroup implements PopupMenu.OnMenuI
 
         gestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
             @Override
+            public boolean onSingleTapConfirmed(MotionEvent e) {
+                if (dropdownMenuMode) {
+                    contextMenu.show();
+                }
+                return super.onSingleTapConfirmed(e);
+            }
+
+            @Override
             public void onLongPress(MotionEvent e) {
-                contextMenu.show();
+                if (!dropdownMenuMode) {
+                    contextMenu.show();
+                }
             }
         });
     }
@@ -86,6 +98,10 @@ public class ContextMenuView extends ReactViewGroup implements PopupMenu.OnMenuI
             menu.add(Menu.NONE, Menu.NONE, order, action.getString("title"));
             menu.getItem(i).setEnabled(!action.hasKey("disabled") || !action.getBoolean("disabled"));
         }
+    }
+
+    public void setDropdownMenuMode(@Nullable boolean enabled) {
+        this.dropdownMenuMode = enabled;
     }
 
     @Override
