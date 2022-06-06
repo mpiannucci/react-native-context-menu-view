@@ -21,6 +21,7 @@ import com.facebook.react.touch.OnInterceptTouchEventListener;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.facebook.react.views.view.ReactViewGroup;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.Nullable;
@@ -36,6 +37,8 @@ public class ContextMenuView extends ReactViewGroup implements PopupMenu.OnMenuI
             this.disabled = disabled;
         }
     }
+
+    HashMap<Integer, String> idMapping = new HashMap<Integer, String>();
 
     PopupMenu contextMenu;
 
@@ -96,6 +99,7 @@ public class ContextMenuView extends ReactViewGroup implements PopupMenu.OnMenuI
             ReadableMap action = actions.getMap(i);
             int order = i;
             menu.add(Menu.NONE, Menu.NONE, order, action.getString("title"));
+            idMapping.put(menu.getItem(i).getItemId(), action.getString("id"));
             menu.getItem(i).setEnabled(!action.hasKey("disabled") || !action.getBoolean("disabled"));
         }
     }
@@ -110,7 +114,9 @@ public class ContextMenuView extends ReactViewGroup implements PopupMenu.OnMenuI
         ReactContext reactContext = (ReactContext) getContext();
         WritableMap event = Arguments.createMap();
         event.putInt("index", menuItem.getOrder());
+        event.putString("id", idMapping.get(menuItem.getItemId()));
         event.putString("name", menuItem.getTitle().toString());
+        event.putString("title", menuItem.getTitle().toString());
         reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(getId(), "onPress", event);
         return false;
     }
