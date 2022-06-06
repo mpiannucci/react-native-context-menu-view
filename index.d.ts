@@ -36,6 +36,7 @@ export interface ContextMenuOnPressNativeEvent {
 	index: number;
 	id: string;
 	name: string;
+	title: string
 }
 
 export interface ContextMenuProps extends ViewProps {

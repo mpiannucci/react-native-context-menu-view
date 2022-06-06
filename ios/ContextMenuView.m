@@ -137,6 +137,7 @@
               @"index": @(idx),
               @"id": action.identifier,
               @"name": action.title,
+              @"title": action.title,
             });
           }
         }];
