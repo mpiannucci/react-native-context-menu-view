@@ -13,6 +13,7 @@
 + (ContextMenuAction*) ContextMenuAction:(id)json {
     json = [self NSDictionary:json];
     ContextMenuAction* action = [[ContextMenuAction alloc] init];
+    action.identifier = [self NSString:json[@"id"]];
     action.title = [self NSString:json[@"title"]];
     action.systemIcon = [self NSString:json[@"systemIcon"]];
     action.destructive = [self BOOL:json[@"destructive"]];

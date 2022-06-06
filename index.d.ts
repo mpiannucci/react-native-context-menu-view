@@ -3,6 +3,10 @@ import { NativeSyntheticEvent, ViewProps, ViewStyle } from 'react-native';
 
 export interface ContextMenuAction {
 	/**
+	 * The id of the action
+	 */
+	id: string;
+	/**
 	 * The title of the action
 	 */
 	title: string;
@@ -30,6 +34,7 @@ export interface ContextMenuAction {
 
 export interface ContextMenuOnPressNativeEvent {
 	index: number;
+	id: string;
 	name: string;
 }
 

@@ -130,11 +130,12 @@
       menuElement = actionMenu;
     } else {
       UIAction* actionMenuItem =
-        [UIAction actionWithTitle:action.title image:[UIImage systemImageNamed:action.systemIcon] identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+        [UIAction actionWithTitle:action.title image:[UIImage systemImageNamed:action.systemIcon] identifier:action.identifier handler:^(__kindof UIAction * _Nonnull action) {
           if (self.onPress != nil) {
             self->_cancelled = false;
             self.onPress(@{
               @"index": @(idx),
+              @"id": action.identifier,
               @"name": action.title,
             });
           }
