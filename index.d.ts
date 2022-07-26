@@ -7,7 +7,7 @@ export interface ContextMenuAction {
 	 */
 	title: string;
 	/**
-	 * The icon to use on ios. This is the name of the SFSymbols icon to use. On Android nothing will happen if you set this option. 
+	 * On iOS it is the name of the SFSymbols icon to use. On Android it is the name of the system Android icons (android.R.drawable)
 	 */
 	systemIcon?: string;
 	/**
@@ -15,8 +15,8 @@ export interface ContextMenuAction {
 	 */
 	destructive?: boolean;
 	/**
-	* Whether the action is disabled or not (default: false)
-	*/
+	 * Whether the action is disabled or not (default: false)
+	 */
 	disabled?: boolean;
 	/**
 	 * Whether its children (if any) should be rendered inline instead of in their own child menu (default: false, iOS only)
@@ -43,7 +43,7 @@ export interface ContextMenuProps extends ViewProps {
 	 */
 	actions?: Array<ContextMenuAction>;
 	/**
-	 * Handle when an action is triggered and the menu is closed. The name of the selected action will be passed in the event. 
+	 * Handle when an action is triggered and the menu is closed. The name of the selected action will be passed in the event.
 	 */
 	onPress?: (e: NativeSyntheticEvent<ContextMenuOnPressNativeEvent>) => void;
 	/**
@@ -62,6 +62,14 @@ export interface ContextMenuProps extends ViewProps {
 	 * When enabled, uses iOS 14 menu mode, and shows the context menu on a single tap with no zoomed preview.
 	 */
 	dropdownMenuMode?: boolean;
+	/**
+	 * Background Color of context menu (Android only)
+	 */
+	androidMenuColor?: string;
+	/**
+	 * Text Color of context menu items (Android only)
+	 */
+	androidTextColor?: string;
 }
 
 export default class ContextMenu extends Component<ContextMenuProps> { }
