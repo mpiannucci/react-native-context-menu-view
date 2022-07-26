@@ -30,11 +30,6 @@ public class ContextMenuManager extends ViewGroupManager<ContextMenuView> {
         return reactViewGroup;
     }
 
-    @ReactProp(name = "title")
-    public void setTitle(ContextMenuView view, @Nullable String title) {
-        // TODO: Maybe support this? IDK if its necessary though
-    }
-
     @ReactProp(name = "actions")
     public void setActions(ContextMenuView view, @Nullable ReadableArray actions) {
         view.setActions(actions);
@@ -45,6 +40,16 @@ public class ContextMenuManager extends ViewGroupManager<ContextMenuView> {
         view.setDropdownMenuMode(enabled);
     }
 
+    @ReactProp(name = "menuColor")
+    public void setBackgroundColor(ContextMenuView view, String menuColor) {
+        view.setBackgroundColor(menuColor);
+    }
+
+    @ReactProp(name = "textColor")
+    public void setTextColor(ContextMenuView view, String textColor) {
+        view.setTextColor(textColor);
+    }
+
     @androidx.annotation.Nullable
     @Override
     public Map<String, Object> getExportedCustomDirectEventTypeConstants() {
@@ -53,4 +58,5 @@ public class ContextMenuManager extends ViewGroupManager<ContextMenuView> {
                 .put("onCancel", MapBuilder.of("registrationName", "onCancel"))
                 .build();
     }
+
 }
