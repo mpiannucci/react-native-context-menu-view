@@ -62,6 +62,10 @@ export interface ContextMenuProps extends ViewProps {
 	 * When enabled, uses iOS 14 menu mode, and shows the context menu on a single tap with no zoomed preview.
 	 */
 	dropdownMenuMode?: boolean;
+	/**
+	 * Disable menu interaction
+	 */
+	disabled?: boolean;
 }
 
 export default class ContextMenu extends Component<ContextMenuProps> { }
