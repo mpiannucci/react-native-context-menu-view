@@ -54,11 +54,11 @@ System icon refers to an icon name within [SF Symbols](https://developer.apple.c
 
 Destructive items are rendered in red on iOS, and unchanged on Android.
 
-Nested menus are supported on iOS only and result in nested UIMenu which can be optionally displayed inline. 
+Nested menus are supported on iOS only and result in nested UIMenu which can be optionally displayed inline.
 
 ###### `onPress`
 
-Optional. When the popup is opened and the user picks an option. Called with `{ nativeEvent: { index, name } }`. When a nested action is selected the top level parent index is used for the callback. 
+Optional. When the popup is opened and the user picks an option. Called with `{ nativeEvent: { index, name } }`. When a nested action is selected the top level parent index is used for the callback.
 
 ###### `onCancel`
 
@@ -70,4 +70,8 @@ Optional. The background color of the preview. This is displayed underneath your
 
 ###### `dropdownMenuMode`
 
-Optional. When set to `true`, the context menu is triggered with a single tap instead of a long press, and a preview is not show and no blur occurs. Uses the iOS 14 Menu API and a simple tap listener on android. 
+Optional. When set to `true`, the context menu is triggered with a single tap instead of a long press, and a preview is not show and no blur occurs. Uses the iOS 14 Menu API and a simple tap listener on android.
+
+###### `disabled`
+
+Optional. Currently iOS only. Disable menu interaction.

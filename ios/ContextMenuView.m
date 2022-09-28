@@ -22,13 +22,13 @@
 
 - (id) init {
     self = [super init];
-    
+
     if (@available(iOS 14.0, *)) {
         self.contextMenuInteractionEnabled = true;
     } else {
         // Fallback on earlier versions
     }
-    
+
     return self;
 }
 
@@ -65,6 +65,10 @@
 }
 
 - (nullable UIContextMenuConfiguration *)contextMenuInteraction:(nonnull UIContextMenuInteraction *)interaction configurationForMenuAtLocation:(CGPoint)location API_AVAILABLE(ios(13.0)) {
+  if (_disabled) {
+    return nil;
+  }
+
   return [UIContextMenuConfiguration
           configurationWithIdentifier:nil
           previewProvider:_customView == nil ? nil : ^(){
