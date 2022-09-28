@@ -63,7 +63,7 @@ export interface ContextMenuProps extends ViewProps {
 	 */
 	dropdownMenuMode?: boolean;
 	/**
-	 * Disable menu interaction
+	 * Currently iOS only. Disable menu interaction
 	 */
 	disabled?: boolean;
 }
