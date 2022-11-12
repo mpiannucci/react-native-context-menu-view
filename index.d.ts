@@ -30,6 +30,7 @@ export interface ContextMenuAction {
 
 export interface ContextMenuOnPressNativeEvent {
 	index: number;
+	indexPath: number[],
 	name: string;
 }
 
