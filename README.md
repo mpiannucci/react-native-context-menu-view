@@ -48,7 +48,7 @@ Optional. The title above the popup menu.
 
 ###### `actions`
 
-Array of `{ title: string, systemIcon?: string, destructive?: boolean, disabled?: boolean, inlineChildren?: boolean, children?: Array<ContextMenuAction> }`.
+Array of `{ title: string, systemIcon?: string, destructive?: boolean, disabled?: boolean, inlineChildren?: boolean, actions?: Array<ContextMenuAction> }`.
 
 System icon refers to an icon name within [SF Symbols](https://developer.apple.com/design/human-interface-guidelines/sf-symbols/overview/).
 
