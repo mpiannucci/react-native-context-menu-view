@@ -58,7 +58,9 @@ Nested menus are supported on iOS only and result in nested UIMenu which can be 
 
 ###### `onPress`
 
-Optional. When the popup is opened and the user picks an option. Called with `{ nativeEvent: { index, name } }`. When a nested action is selected the top level parent index is used for the callback.
+Optional. When the popup is opened and the user picks an option. Called with `{ nativeEvent: { index, indexPath, name } }`. When a nested action is selected the top level parent index is used for the callback.
+
+iOS only: to get the full path to the item, `indexPath` is an array of indices to reach the item. For a top-levle item, it'll be an array with a single index. For an item one deep, it'll be an array with two indicies.
 
 ###### `onCancel`
 

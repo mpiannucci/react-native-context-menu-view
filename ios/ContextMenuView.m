@@ -11,7 +11,7 @@
 
 @interface ContextMenuView ()
 
-- (UIMenuElement*) createMenuElementForAction:(ContextMenuAction *)action atIndex:(NSUInteger) idx API_AVAILABLE(ios(13.0));
+- (UIMenuElement*) createMenuElementForAction:(ContextMenuAction *)action atIndexPath:(NSUInteger) idx API_AVAILABLE(ios(13.0));
 
 @end
 
@@ -81,7 +81,7 @@
             NSMutableArray* actions = [[NSMutableArray alloc] init];
 
             [self.actions enumerateObjectsUsingBlock:^(ContextMenuAction* thisAction, NSUInteger idx, BOOL *stop) {
-              UIMenuElement *menuElement = [self createMenuElementForAction:thisAction atIndex:idx];
+              UIMenuElement *menuElement = [self createMenuElementForAction:thisAction atIndexPath:[NSArray arrayWithObject:@(idx)]];
               [actions addObject:menuElement];
             }];
 
@@ -112,12 +112,13 @@
                                             target:previewTarget];
 }
 
-- (UIMenuElement*) createMenuElementForAction:(ContextMenuAction *)action atIndex:(NSUInteger) idx {
+- (UIMenuElement*) createMenuElementForAction:(ContextMenuAction *)action atIndexPath:(NSArray<NSNumber *> *)indexPath {
     UIMenuElement* menuElement = nil;
     if (action.actions != nil && action.actions.count > 0) {
       NSMutableArray<UIMenuElement*> *children = [[NSMutableArray alloc] init];
       [action.actions enumerateObjectsUsingBlock:^(ContextMenuAction * _Nonnull childAction, NSUInteger childIdx, BOOL * _Nonnull stop) {
-        UIMenuElement *childElement = [self createMenuElementForAction:childAction atIndex:idx];
+        id nextIndexPath = [indexPath arrayByAddingObject:@(childIdx)];
+        UIMenuElement *childElement = [self createMenuElementForAction:childAction atIndexPath:nextIndexPath];
         if (childElement != nil) {
           [children addObject:childElement];
         }
@@ -138,7 +139,8 @@
           if (self.onPress != nil) {
             self->_cancelled = false;
             self.onPress(@{
-              @"index": @(idx),
+              @"index": [indexPath lastObject],
+              @"indexPath": indexPath,
               @"name": action.title,
             });
           }
