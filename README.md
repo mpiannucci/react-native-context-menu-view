@@ -48,7 +48,7 @@ Optional. The title above the popup menu.
 
 ###### `actions`
 
-Array of `{ title: string, subtitle?: string, systemIcon?: string, destructive?: boolean, disabled?: boolean, inlineChildren?: boolean, actions?: Array<ContextMenuAction> }`.
+Array of `{ title: string, subtitle?: string, systemIcon?: string, destructive?: boolean, disabled?: boolean, disabled?: boolean, inlineChildren?: boolean, actions?: Array<ContextMenuAction> }`.
 
 Subtitle is only available on iOS 15+.
 
