@@ -7,6 +7,10 @@ export interface ContextMenuAction {
 	 */
 	title: string;
 	/**
+	 * The subtitle of the action. iOS 15+.
+	 */
+	subtitletitle: string;
+	/**
 	 * The icon to use on ios. This is the name of the SFSymbols icon to use. On Android nothing will happen if you set this option. 
 	 */
 	systemIcon?: string;
@@ -30,6 +34,7 @@ export interface ContextMenuAction {
 
 export interface ContextMenuOnPressNativeEvent {
 	index: number;
+	indexPath: number[],
 	name: string;
 }
 
@@ -66,6 +71,10 @@ export interface ContextMenuProps extends ViewProps {
 	 * Currently iOS only. Disable menu interaction
 	 */
 	disabled?: boolean;
+	/**
+	 * Children prop as per upgrade docs: https://reactjs.org/blog/2022/03/08/react-18-upgrade-guide.html#updates-to-typescript-definitions
+	 */
+	 children?: React.ReactNode;
 }
 
 export default class ContextMenu extends Component<ContextMenuProps> { }

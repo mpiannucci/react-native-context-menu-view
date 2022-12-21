@@ -11,6 +11,7 @@
 @interface ContextMenuAction : NSObject
 
 @property (nonnull, nonatomic, copy) NSString* title;
+@property (nonnull, nonatomic, copy) NSString* subtitle;
 @property (nullable, nonatomic, copy) NSString* systemIcon;
 @property (nonatomic, assign) BOOL destructive;
 @property (nonatomic, assign) BOOL disabled;
