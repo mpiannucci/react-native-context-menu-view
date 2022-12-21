@@ -14,6 +14,7 @@
     json = [self NSDictionary:json];
     ContextMenuAction* action = [[ContextMenuAction alloc] init];
     action.title = [self NSString:json[@"title"]];
+    action.subtitle = [self NSString:json[@"subtitle"]];
     action.systemIcon = [self NSString:json[@"systemIcon"]];
     action.destructive = [self BOOL:json[@"destructive"]];
     action.disabled = [self BOOL:json[@"disabled"]];

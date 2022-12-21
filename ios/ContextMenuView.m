@@ -132,6 +132,11 @@
                                       identifier:nil
                                          options:actionMenuOptions
                                         children:children];
+
+      if (@available(iOS 15.0, *)) {
+        actionMenu.subtitle = action.subtitle;
+      }
+
       menuElement = actionMenu;
     } else {
       UIAction* actionMenuItem =
@@ -145,6 +150,10 @@
             });
           }
         }];
+
+      if (@available(iOS 15.0, *)) {
+        actionMenuItem.subtitle = action.subtitle;
+      }
 
       actionMenuItem.attributes =
         (action.destructive ? UIMenuElementAttributesDestructive : 0) |
