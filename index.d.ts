@@ -9,7 +9,7 @@ export interface ContextMenuAction {
 	/**
 	 * The subtitle of the action. iOS 15+.
 	 */
-	subtitletitle: string;
+	subtitletitle?: string;
 	/**
 	 * The icon to use on ios. This is the name of the SFSymbols icon to use. On Android nothing will happen if you set this option. 
 	 */
