@@ -1,7 +1,7 @@
 {
   "name": "react-native-context-menu-view",
   "title": "React Native Context Menu View",
-  "version": "1.9.0",
+  "version": "1.9.1",
   "description": "Use native context menu views from React Native",
   "main": "index.js",
   "types": "index.d.ts",
