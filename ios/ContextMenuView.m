@@ -99,7 +99,8 @@
   }
 }
 
-- (UITargetedPreview *)contextMenuInteraction:(UIContextMenuInteraction *)interaction previewForHighlightingMenuWithConfiguration:(UIContextMenuConfiguration *)configuration API_AVAILABLE(ios(13.0)) {
+- (UITargetedPreview *)contextMenuInteraction:(UIContextMenuInteraction *)interaction previewForHighlightingMenuWithConfiguration:(UIContextMenuConfiguration *)configuration {
+
     UIPreviewTarget* previewTarget = [[UIPreviewTarget alloc] initWithContainer:self center:self.reactSubviews.firstObject.center];
     UIPreviewParameters* previewParams = [[UIPreviewParameters alloc] init];
 
@@ -107,9 +108,30 @@
       previewParams.backgroundColor = _previewBackgroundColor;
     }
 
-    return [[UITargetedPreview alloc] initWithView:self.reactSubviews.firstObject
-                                        parameters:previewParams
-                                            target:previewTarget];
+    UIView *originalSubview = self.reactSubviews.firstObject;
+
+    // Take a snapshot of the original view
+    UIGraphicsBeginImageContextWithOptions(originalSubview.bounds.size, NO, 0.0);
+    [originalSubview.layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *snapshotImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+
+    // Create a UIImageView from the snapshot
+    UIImageView *snapshotView = [[UIImageView alloc] initWithImage:snapshotImage];
+
+    CGFloat padding = 20;
+    CGRect substitutionViewFrame = CGRectMake(0, 0, snapshotView.frame.size.width + padding, snapshotView.frame.size.height + padding);
+    UIView *substitutionView = [[UIView alloc] initWithFrame:substitutionViewFrame];
+
+    snapshotView.center = CGPointMake(substitutionViewFrame.size.width / 2, substitutionViewFrame.size.height / 2);
+
+    [substitutionView addSubview:snapshotView];
+
+    UITargetedPreview *preview = [[UITargetedPreview alloc] initWithView:substitutionView
+                                                              parameters:previewParams
+                                                                  target:previewTarget];
+
+    return preview;
 }
 
 - (UIMenuElement*) createMenuElementForAction:(ContextMenuAction *)action atIndexPath:(NSArray<NSNumber *> *)indexPath {
