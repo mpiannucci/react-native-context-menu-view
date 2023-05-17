@@ -119,7 +119,7 @@
     // Create a UIImageView from the snapshot
     UIImageView *snapshotView = [[UIImageView alloc] initWithImage:snapshotImage];
 
-    CGFloat padding = 20;
+    CGFloat padding = _previewPadding;
     CGRect substitutionViewFrame = CGRectMake(0, 0, snapshotView.frame.size.width + padding, snapshotView.frame.size.height + padding);
     UIView *substitutionView = [[UIView alloc] initWithFrame:substitutionViewFrame];
 

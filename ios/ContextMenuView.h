@@ -18,5 +18,6 @@
 @property (nullable, nonatomic, copy) NSArray<ContextMenuAction*>* actions;
 @property (nullable, nonatomic, copy) UIColor* previewBackgroundColor;
 @property (nonatomic, assign) BOOL disabled;
+@property (nonatomic, assign) CGFloat previewPadding;
 
 @end
