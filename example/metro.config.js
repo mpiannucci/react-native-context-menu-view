@@ -10,11 +10,9 @@ module.exports = {
   resolver: {
     extraNodeModules: new Proxy(
       {},
-      { get: (_, name) => path.resolve('.', 'node_modules', name) }
-    )
+      {get: (_, name) => path.resolve('.', 'node_modules', name)},
+    ),
   },
 
-  // quick workaround solution for issue with symlinked modules ref:
-  // https://github.com/brodybits/create-react-native-module/issues/232
-  watchFolders: ['.', '..']
+  watchFolders: [path.resolve(__dirname, '.'), path.resolve(__dirname, '..')],
 }
