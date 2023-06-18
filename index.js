@@ -1,5 +1,5 @@
 import React from "react";
-import { requireNativeComponent, View, Platform } from "react-native";
+import { requireNativeComponent, View, Platform, StyleSheet } from "react-native";
 
 const NativeContextMenu = requireNativeComponent("ContextMenu", null);
 
@@ -8,10 +8,18 @@ const ContextMenu = (props) => {
     <NativeContextMenu {...props}>
       {props.children}
       {props.preview != null && Platform.OS === 'ios' ? (
-        <View nativeID="ContextMenuPreview">{props.preview}</View>
+        <View style={styles.preview} nativeID="ContextMenuPreview">{props.preview}</View>
       ) : null}
     </NativeContextMenu>
   );
 };
+
+const styles = StyleSheet.create({
+  preview: {
+    position: 'absolute',
+    overflow: 'visible',
+    backgroundColor: 'transparent'
+  }
+});
 
 export default ContextMenu;
