@@ -48,13 +48,15 @@ Optional. The title above the popup menu.
 
 ###### `actions`
 
-Array of `{ title: string, subtitle?: string, systemIcon?: string, destructive?: boolean, disabled?: boolean, disabled?: boolean, inlineChildren?: boolean, actions?: Array<ContextMenuAction> }`.
+Array of `{ title: string, subtitle?: string, systemIcon?: string, destructive?: boolean, selected?: boolean, disabled?: boolean, disabled?: boolean, inlineChildren?: boolean, actions?: Array<ContextMenuAction> }`.
 
 Subtitle is only available on iOS 15+.
 
 System icon refers to an icon name within [SF Symbols](https://developer.apple.com/design/human-interface-guidelines/sf-symbols/overview/).
 
 Destructive items are rendered in red on iOS, and unchanged on Android.
+
+Selected items have a checkmark next to them on iOS, and unchanged on Android.
 
 Nested menus are supported on iOS only and result in nested UIMenu which can be optionally displayed inline.
 

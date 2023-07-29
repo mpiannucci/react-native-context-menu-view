@@ -159,6 +159,9 @@
         (action.destructive ? UIMenuElementAttributesDestructive : 0) |
         (action.disabled ? UIMenuElementAttributesDisabled : 0);
 
+      actionMenuItem.state = 
+      	action.selected ? UIMenuElementStateOn : UIMenuElementStateOff;
+
       menuElement = actionMenuItem;
     }
 

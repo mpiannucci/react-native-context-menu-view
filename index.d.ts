@@ -19,6 +19,10 @@ export interface ContextMenuAction {
 	 */
 	destructive?: boolean;
 	/**
+	 * Selected items have a checkmark next to them on iOS, and unchanged on Android. (default: false)
+	 */
+	selected?: boolean;
+	/**
 	* Whether the action is disabled or not (default: false)
 	*/
 	disabled?: boolean;

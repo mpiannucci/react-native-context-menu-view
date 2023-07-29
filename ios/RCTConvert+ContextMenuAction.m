@@ -17,6 +17,7 @@
     action.subtitle = [self NSString:json[@"subtitle"]];
     action.systemIcon = [self NSString:json[@"systemIcon"]];
     action.destructive = [self BOOL:json[@"destructive"]];
+    action.selected = [self BOOL:json[@"selected"]];
     action.disabled = [self BOOL:json[@"disabled"]];
     action.inlineChildren = [self BOOL:json[@"inlineChildren"]];
     

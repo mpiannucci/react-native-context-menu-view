@@ -14,6 +14,7 @@
 @property (nonnull, nonatomic, copy) NSString* subtitle;
 @property (nullable, nonatomic, copy) NSString* systemIcon;
 @property (nonatomic, assign) BOOL destructive;
+@property (nonatomic, assign) BOOL selected;
 @property (nonatomic, assign) BOOL disabled;
 @property (nonatomic, assign) BOOL inlineChildren;
 @property (nullable, nonatomic, copy) NSArray<ContextMenuAction*>* actions;
