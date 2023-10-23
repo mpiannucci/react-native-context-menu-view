@@ -1,6 +1,19 @@
 import React, { useState } from 'react';
-import { SafeAreaView, View, StyleSheet } from 'react-native';
+import { SafeAreaView, View, StyleSheet, Platform } from 'react-native';
 import ContextMenu from 'react-native-context-menu-view';
+
+const Icons = Platform.select({
+  ios: {
+    changeColor: 'paintbrush',
+    transparent: 'trash',
+    toggleCircle: 'circlebadge'
+  },
+  android: {
+    changeColor: 'baseline_format_paint',
+    transparent: 'baseline_delete',
+    toggleCircle: 'outline_circle',
+  }
+})
 
 const App = () => {
   const [color, setColor] = useState('blue');
@@ -11,7 +24,7 @@ const App = () => {
       <ContextMenu title={'Customize'} actions={[
         {
           title: 'Change Color',
-          systemIcon: 'paintbrush',
+          systemIcon: Icons.changeColor,
           inlineChildren: true,
           actions: [
             {
@@ -26,12 +39,12 @@ const App = () => {
         },
         {
           title: 'Transparent',
-          systemIcon: 'trash',
+          systemIcon: Icons.transparent,
           destructive: true,
         },
         {
           title: 'Toggle Circle',
-          systemIcon: 'circlebadge'
+          systemIcon: Icons.toggleCircle,
         },
         {
           title: 'Disabled Item',
