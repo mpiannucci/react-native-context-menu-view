@@ -11,7 +11,7 @@ export interface ContextMenuAction {
 	 */
 	subtitle?: string;
 	/**
-	 * The icon to use on ios. This is the name of the SFSymbols icon to use. On Android nothing will happen if you set this option. 
+	 * The icon to use. This is the name of the SFSymbols icon to use on IOS and name of the Drawable to use on Android.
 	 */
 	systemIcon?: string;
 	/**

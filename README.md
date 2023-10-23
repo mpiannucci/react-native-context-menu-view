@@ -52,7 +52,7 @@ Array of `{ title: string, subtitle?: string, systemIcon?: string, destructive?:
 
 Subtitle is only available on iOS 15+.
 
-System icon refers to an icon name within [SF Symbols](https://developer.apple.com/design/human-interface-guidelines/sf-symbols/overview/).
+System icon refers to an icon name within [SF Symbols](https://developer.apple.com/design/human-interface-guidelines/sf-symbols/overview/) on IOS and Drawable name on Android.
 
 Destructive items are rendered in red on iOS, and unchanged on Android.
 
