@@ -1,10 +1,15 @@
 package com.mpiannucci.reactnativecontextmenu;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.gesture.Gesture;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.Menu;
@@ -103,10 +108,19 @@ public class ContextMenuView extends ReactViewGroup implements PopupMenu.OnMenuI
         for (int i = 0; i < actions.size(); i++) {
             ReadableMap action = actions.getMap(i);
             @Nullable Drawable systemIcon = getResourceWithName(getContext(), action.getString("systemIcon"));
+            String title = action.getString("title");
             int order = i;
-            menu.add(Menu.NONE, Menu.NONE, order, action.getString("title"));
+            menu.add(Menu.NONE, Menu.NONE, order, title);
             menu.getItem(i).setEnabled(!action.hasKey("disabled") || !action.getBoolean("disabled"));
             menu.getItem(i).setIcon(systemIcon);
+            if (action.hasKey("destructive") && action.getBoolean("destructive")) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    menu.getItem(i).setIconTintList(ColorStateList.valueOf(Color.RED));
+                }
+                SpannableString redTitle = new SpannableString(title);
+                redTitle.setSpan(new ForegroundColorSpan(Color.RED), 0, title.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                menu.getItem(i).setTitle(redTitle);
+            }
         }
     }
 
