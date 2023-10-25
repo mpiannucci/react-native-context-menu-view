@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.gesture.Gesture;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.Menu;
@@ -25,7 +26,6 @@ import com.facebook.react.touch.OnInterceptTouchEventListener;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.facebook.react.views.view.ReactViewGroup;
 
-import java.lang.reflect.Method;
 import java.util.List;
 
 import javax.annotation.Nullable;
@@ -94,9 +94,11 @@ public class ContextMenuView extends ReactViewGroup implements PopupMenu.OnMenuI
     }
 
     public void setActions(@Nullable ReadableArray actions) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            contextMenu.setForceShowIcon(true);
+        }
         Menu menu = contextMenu.getMenu();
         menu.clear();
-        setIconEnable(menu, true);
 
         for (int i = 0; i < actions.size(); i++) {
             ReadableMap action = actions.getMap(i);
@@ -143,19 +145,6 @@ public class ContextMenuView extends ReactViewGroup implements PopupMenu.OnMenuI
             return resourceId != 0 ? ResourcesCompat.getDrawable(resources, resourceId, null) : null;
         } catch (Exception e) {
             return null;
-        }
-    }
-
-    // Reflection to set icon visible
-    private void setIconEnable(Menu menu, boolean enable){
-        try{
-            Class<?> clazz = Class.forName("com.android.internal.view.menu.MenuBuilder");
-            Method m = clazz.getDeclaredMethod("setOptionalIconsVisible", boolean.class);
-            m.setAccessible(true);
-
-            m.invoke(menu, enable);
-        } catch (Exception e){
-            e.printStackTrace();
         }
     }
 }
