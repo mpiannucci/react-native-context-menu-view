@@ -55,6 +55,8 @@ public class ContextMenuView extends ReactViewGroup implements PopupMenu.OnMenuI
 
     protected boolean dropdownMenuMode = false;
 
+    protected boolean disabled = false;
+
     public ContextMenuView(final Context context) {
         super(context);
 
@@ -105,6 +107,8 @@ public class ContextMenuView extends ReactViewGroup implements PopupMenu.OnMenuI
         Menu menu = contextMenu.getMenu();
         menu.clear();
 
+        if (disabled) { return; }
+
         for (int i = 0; i < actions.size(); i++) {
             ReadableMap action = actions.getMap(i);
             @Nullable Drawable systemIcon = getResourceWithName(getContext(), action.getString("systemIcon"));
@@ -126,6 +130,10 @@ public class ContextMenuView extends ReactViewGroup implements PopupMenu.OnMenuI
 
     public void setDropdownMenuMode(@Nullable boolean enabled) {
         this.dropdownMenuMode = enabled;
+    }
+
+    public void setDisabled(@Nullable boolean disabled) {
+        this.disabled = disabled;
     }
 
     @Override
