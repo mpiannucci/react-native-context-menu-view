@@ -80,4 +80,4 @@ Optional. When set to `true`, the context menu is triggered with a single tap in
 
 ###### `disabled`
 
-Optional. Currently iOS only. Disable menu interaction.
+Optional. Disable menu interaction.
