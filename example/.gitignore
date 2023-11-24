@@ -1,6 +1,14 @@
 # OSX
 #
 .DS_Store
+.cxx/
+*.keystore
+!debug.keystore
+
+# Temporary files created by Metro to check the health of the file watcher
+.metro-health-check*
+# testing
+/coverage
 
 # Xcode
 #
@@ -36,12 +44,6 @@ local.properties
 node_modules/
 npm-debug.log
 yarn-error.log
-
-# BUCK
-buck-out/
-\.buckd/
-*.keystore
-!debug.keystore
 
 # fastlane
 #
