@@ -284,7 +284,7 @@ PODS:
   - React-jsinspector (0.69.10)
   - React-logger (0.69.10):
     - glog
-  - react-native-context-menu-view (1.9.1):
+  - react-native-context-menu-view (1.11.0):
     - React
   - React-perflogger (0.69.10)
   - React-RCTActionSheet (0.69.10):
@@ -535,7 +535,7 @@ SPEC CHECKSUMS:
   React-jsiexecutor: 388f1c99404c848141d7ea162f61233d04829ede
   React-jsinspector: a4463b3411b8b9b37153255ef694a84c77ba3c7f
   React-logger: 2a0497622cbabc47fb769d97620952df14c1f814
-  react-native-context-menu-view: a54a97ead7e44b0671a8c2b48ac70b9e4e2a19fb
+  react-native-context-menu-view: c13b66d44f85b7e7d791a6fbc1e6218c6047eb90
   React-perflogger: bc57c4a953c1ec913b0d984cf4f2b9842a12bde0
   React-RCTActionSheet: 3efa3546119a1050f6c34a461b386dd9e36eaf0b
   React-RCTAnimation: e58fb9f1adf7b38af329881ea2740f43ffeea854
@@ -554,4 +554,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: d86e66c2874689cd5ab998282245ad4757a12721
 
-COCOAPODS: 1.12.1
+COCOAPODS: 1.14.3

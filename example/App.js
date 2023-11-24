@@ -17,6 +17,7 @@ const Icons = Platform.select({
 
 const App = () => {
   const [color, setColor] = useState('blue');
+  const [previousColor, setPreviousColor] = useState('blue');
   const [circle, setCircle] = useState(false)
 
   return (
@@ -51,10 +52,17 @@ const App = () => {
           disabled: true,
         },
       ]} onPress={(event) => {
-        const { index, name } = event.nativeEvent;
-        if (index == 0) {
+        const { index, indexPath, name } = event.nativeEvent;
+        if (indexPath.length == 2 && indexPath[0] == 0) {
           setColor(name.toLowerCase());
-        } else {
+        } else if (index == 1) {
+          if (color !== 'transparent') {
+            setPreviousColor(color);
+            setColor('transparent');
+          } else {
+            setColor(previousColor);
+          }
+        } else if (index == 2) {
           setCircle(!circle)
         }
       }} onCancel={() => {
