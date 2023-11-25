@@ -66,6 +66,10 @@ Optional. When the popup is opened and the user picks an option. Called with `{ 
 
 iOS only: to get the full path to the item, `indexPath` is an array of indices to reach the item. For a top-levle item, it'll be an array with a single index. For an item one deep, it'll be an array with two indicies.
 
+###### `onPreviewPress`
+
+Optional, iOS only. When the context menu preview is tapped.
+
 ###### `onCancel`
 
 Optional. When the popop is opened and the user cancels.
