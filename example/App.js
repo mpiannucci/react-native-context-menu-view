@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { SafeAreaView, View, StyleSheet, Platform } from 'react-native';
+import { SafeAreaView, View, StyleSheet, Platform, TouchableOpacity, Alert } from 'react-native';
 import ContextMenu from 'react-native-context-menu-view';
 
 const Icons = Platform.select({
@@ -106,7 +106,12 @@ const App = () => {
           },
         ]}
         previewBackgroundColor="transparent"
-        preview={<View style={[styles.rectangle, { backgroundColor: 'green' }]} />}>
+        preview={
+          <TouchableOpacity onPress={() => console.log('TAPPP')}>
+            <View style={[styles.rectangle, { backgroundColor: 'green' }]} />
+          </TouchableOpacity>
+        }
+        onPreviewPress={() => Alert.alert('Preview Tapped')}>
         <View style={[styles.rectangle, { backgroundColor: 'red' }]} />
       </ContextMenu>
     </SafeAreaView>

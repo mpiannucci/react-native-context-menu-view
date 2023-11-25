@@ -56,6 +56,10 @@ export interface ContextMenuProps extends ViewProps {
 	 */
 	onPress?: (e: NativeSyntheticEvent<ContextMenuOnPressNativeEvent>) => void;
 	/**
+	 * Handle when the preview is tapped. iOS only.
+	 */
+	onPreviewPress?: () => void;
+	/**
 	 * Handle when the menu is cancelled and closed
 	 */
 	onCancel?: () => void;
