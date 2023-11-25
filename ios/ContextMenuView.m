@@ -93,6 +93,12 @@
   _cancelled = true;
 }
 
+- (void)contextMenuInteraction:(UIContextMenuInteraction *)interaction willPerformPreviewActionForMenuWithConfiguration:(nonnull UIContextMenuConfiguration *)configuration animator:(nonnull id<UIContextMenuInteractionCommitAnimating>)animator API_AVAILABLE(ios(13.0)) {
+    if (self.onPreviewPress) {
+        self.onPreviewPress(@{});
+    }
+}
+
 - (void)contextMenuInteraction:(UIContextMenuInteraction *)interaction willEndForConfiguration:(UIContextMenuConfiguration *)configuration animator:(id<UIContextMenuInteractionAnimating>)animator API_AVAILABLE(ios(13.0)) {
   if (_cancelled && self.onCancel) {
     self.onCancel(@{});

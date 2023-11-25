@@ -14,6 +14,7 @@
 
 @property (nonnull, nonatomic, copy) NSString* title;
 @property (nullable, nonatomic, copy) RCTBubblingEventBlock onPress;
+@property (nullable, nonatomic, copy) RCTBubblingEventBlock onPreviewPress;
 @property (nullable, nonatomic, copy) RCTBubblingEventBlock onCancel;
 @property (nullable, nonatomic, copy) NSArray<ContextMenuAction*>* actions;
 @property (nullable, nonatomic, copy) UIColor* previewBackgroundColor;
