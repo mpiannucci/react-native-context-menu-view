@@ -67,7 +67,7 @@ public class ContextMenuView extends ReactViewGroup implements PopupMenu.OnMenuI
         gestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
             @Override
             public boolean onSingleTapConfirmed(MotionEvent e) {
-                if (dropdownMenuMode) {
+                if (dropdownMenuMode && !disabled) {
                     contextMenu.show();
                 }
                 return super.onSingleTapConfirmed(e);
@@ -75,7 +75,7 @@ public class ContextMenuView extends ReactViewGroup implements PopupMenu.OnMenuI
 
             @Override
             public void onLongPress(MotionEvent e) {
-                if (!dropdownMenuMode) {
+                if (!dropdownMenuMode && !disabled) {
                     contextMenu.show();
                 }
             }
@@ -106,8 +106,6 @@ public class ContextMenuView extends ReactViewGroup implements PopupMenu.OnMenuI
         }
         Menu menu = contextMenu.getMenu();
         menu.clear();
-
-        if (disabled) { return; }
 
         for (int i = 0; i < actions.size(); i++) {
             ReadableMap action = actions.getMap(i);
