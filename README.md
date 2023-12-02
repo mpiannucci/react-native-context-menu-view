@@ -48,11 +48,13 @@ Optional. The title above the popup menu.
 
 ###### `actions`
 
-Array of `{ title: string, subtitle?: string, systemIcon?: string, destructive?: boolean, selected?: boolean, disabled?: boolean, disabled?: boolean, inlineChildren?: boolean, actions?: Array<ContextMenuAction> }`.
+Array of `{ title: string, subtitle?: string, systemIcon?: string, systemIconColor?: string, destructive?: boolean, selected?: boolean, disabled?: boolean, disabled?: boolean, inlineChildren?: boolean, actions?: Array<ContextMenuAction> }`.
 
 Subtitle is only available on iOS 15+.
 
 System icon refers to an icon name within [SF Symbols](https://developer.apple.com/design/human-interface-guidelines/sf-symbols/overview/) on IOS and Drawable name on Android.
+
+System icon color is only available on Android.
 
 Destructive items are rendered in red.
 
