@@ -162,7 +162,7 @@ public class ContextMenuView extends ReactViewGroup implements PopupMenu.OnMenuI
         Resources resources = context.getResources();
         int resourceId = resources.getIdentifier(systemIcon, "drawable", context.getPackageName());
         try {
-            return resourceId != 0 ? ResourcesCompat.getDrawable(resources, resourceId, null) : null;
+            return resourceId != 0 ? ResourcesCompat.getDrawable(resources, resourceId, context.getTheme()) : null;
         } catch (Exception e) {
             return null;
         }
