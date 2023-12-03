@@ -114,6 +114,11 @@ public class ContextMenuView extends ReactViewGroup implements PopupMenu.OnMenuI
             int order = i;
             menu.add(Menu.NONE, Menu.NONE, order, title);
             menu.getItem(i).setEnabled(!action.hasKey("disabled") || !action.getBoolean("disabled"));
+
+            if (action.hasKey("systemIconColor") && systemIcon != null) {
+                int color = Color.parseColor(action.getString("systemIconColor"));
+                systemIcon.setTint(color);
+            }
             menu.getItem(i).setIcon(systemIcon);
             if (action.hasKey("destructive") && action.getBoolean("destructive")) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
