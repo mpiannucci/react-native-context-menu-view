@@ -109,6 +109,8 @@ public class ContextMenuView extends ReactViewGroup implements MenuItem.OnMenuIt
                 redTitle.setSpan(new ForegroundColorSpan(Color.RED), 0, title.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                 contextMenu.getItem(i).setTitle(redTitle);
             }
+
+            contextMenu.getItem(i).setOnMenuItemClickListener(this);
         }
     }
 
