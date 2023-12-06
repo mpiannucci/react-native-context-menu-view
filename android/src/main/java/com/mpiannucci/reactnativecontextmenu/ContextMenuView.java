@@ -16,19 +16,21 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ContextMenu;
 
+import androidx.annotation.NonNull;
 import androidx.core.content.res.ResourcesCompat;
 
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
+import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.facebook.react.views.view.ReactViewGroup;
 
 import javax.annotation.Nullable;
 
-public class ContextMenuView extends ReactViewGroup implements MenuItem.OnMenuItemClickListener, View.OnCreateContextMenuListener {
+public class ContextMenuView extends ReactViewGroup implements View.OnCreateContextMenuListener {
     @Nullable ReadableArray actions;
 
     boolean cancelled = true;
@@ -90,27 +92,15 @@ public class ContextMenuView extends ReactViewGroup implements MenuItem.OnMenuIt
 
         for (int i = 0; i < actions.size(); i++) {
             ReadableMap action = actions.getMap(i);
-            @Nullable Drawable systemIcon = getResourceWithName(getContext(), action.getString("systemIcon"));
-            String title = action.getString("title");
-            int order = i;
-            contextMenu.add(Menu.NONE, Menu.NONE, order, title);
-            contextMenu.getItem(i).setEnabled(!action.hasKey("disabled") || !action.getBoolean("disabled"));
+            ReadableArray childActions = action.getArray("actions");
 
-            if (action.hasKey("systemIconColor") && systemIcon != null) {
-                int color = Color.parseColor(action.getString("systemIconColor"));
-                systemIcon.setTint(color);
+            // If there are child actions, this action is a submenu
+            if (childActions != null) {
+                createContextMenuSubMenu(contextMenu, action, childActions, i);
+            } else {
+                // Otherwise its a normal menu item
+                createContextMenuAction(contextMenu, action, i, -1);
             }
-            contextMenu.getItem(i).setIcon(systemIcon);
-            if (action.hasKey("destructive") && action.getBoolean("destructive")) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    contextMenu.getItem(i).setIconTintList(ColorStateList.valueOf(Color.RED));
-                }
-                SpannableString redTitle = new SpannableString(title);
-                redTitle.setSpan(new ForegroundColorSpan(Color.RED), 0, title.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-                contextMenu.getItem(i).setTitle(redTitle);
-            }
-
-            contextMenu.getItem(i).setOnMenuItemClickListener(this);
         }
     }
 
@@ -126,15 +116,55 @@ public class ContextMenuView extends ReactViewGroup implements MenuItem.OnMenuIt
         this.disabled = disabled;
     }
 
-    @Override
-    public boolean onMenuItemClick(MenuItem menuItem) {
-        cancelled = false;
-        ReactContext reactContext = (ReactContext) getContext();
-        WritableMap event = Arguments.createMap();
-        event.putInt("index", menuItem.getOrder());
-        event.putString("name", menuItem.getTitle().toString());
-        reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(getId(), "onPress", event);
-        return false;
+    private void createContextMenuSubMenu(Menu menu, ReadableMap action, ReadableArray childActions, int i) {
+        String title = action.getString("title");
+        Menu parentMenu = menu.addSubMenu(title);
+
+        for (int j = 0; j < childActions.size(); j++) {
+            createContextMenuAction(parentMenu, childActions.getMap(j), j, i);
+        }
+    }
+
+    private void createContextMenuAction(Menu menu, ReadableMap action, int i, int parentIndex) {
+        String title = action.getString("title");
+        @Nullable Drawable systemIcon = getResourceWithName(getContext(), action.getString("systemIcon"));
+
+        MenuItem item = menu.add(Menu.NONE, Menu.NONE, i, title);
+        item.setEnabled(!action.hasKey("disabled") || !action.getBoolean("disabled"));
+
+        if (action.hasKey("systemIconColor") && systemIcon != null) {
+            int color = Color.parseColor(action.getString("systemIconColor"));
+            systemIcon.setTint(color);
+        }
+        item.setIcon(systemIcon);
+        if (action.hasKey("destructive") && action.getBoolean("destructive")) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                item.setIconTintList(ColorStateList.valueOf(Color.RED));
+            }
+            SpannableString redTitle = new SpannableString(title);
+            redTitle.setSpan(new ForegroundColorSpan(Color.RED), 0, title.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            item.setTitle(redTitle);
+        }
+
+        // We need a different listener for nested menus and parent menus
+        item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(@NonNull MenuItem menuItem) {
+                cancelled = false;
+                ReactContext reactContext = (ReactContext) getContext();
+                WritableMap event = Arguments.createMap();
+                event.putInt("index", i);
+                event.putString("name", title);
+                if (parentIndex >= 0) {
+                    WritableArray indexPath = Arguments.createArray();
+                    indexPath.pushInt(parentIndex);
+                    indexPath.pushInt(i);
+                    event.putArray("indexPath", indexPath);
+                }
+                reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(getId(), "onPress", event);
+                return false;
+            }
+        });
     }
 
     private Drawable getResourceWithName(Context context, @Nullable String systemIcon) {

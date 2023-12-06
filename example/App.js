@@ -53,19 +53,10 @@ const App = () => {
         },
       ]} onPress={(event) => {
         const { index, indexPath, name } = event.nativeEvent;
+        console.log(indexPath);
         if (indexPath?.at(0) == 0) {
-          // On iOS the first item is nested in a submenu
+          // The first item is nested in a submenu
           setColor(name.toLowerCase());
-        } else if (name === 'Change Color') {
-          // On Android the first item is simply a change color
-          // button because nested menus are not supported
-          if (color === 'transparent') {
-            setColor(previousColor);
-          } else if (color === 'blue') {
-            setColor('red');
-          } else if (color === 'red') {
-            setColor('blue');
-          }
         } else if (index == 1) {
           if (color !== 'transparent') {
             setPreviousColor(color);
