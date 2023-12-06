@@ -3,53 +3,33 @@ package com.mpiannucci.reactnativecontextmenu;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
-import android.gesture.Gesture;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.PopupMenu;
+import android.view.ContextMenu;
 
 import androidx.core.content.res.ResourcesCompat;
 
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactContext;
-import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.WritableMap;
-import com.facebook.react.touch.OnInterceptTouchEventListener;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.facebook.react.views.view.ReactViewGroup;
 
-import java.util.List;
-
 import javax.annotation.Nullable;
 
-public class ContextMenuView extends ReactViewGroup implements PopupMenu.OnMenuItemClickListener, PopupMenu.OnDismissListener {
-
-    public class Action {
-        String title;
-        boolean disabled;
-
-        public Action(String title, boolean disabled) {
-            this.title = title;
-            this.disabled = disabled;
-        }
-    }
-
-    PopupMenu contextMenu;
-
-    GestureDetector gestureDetector;
+public class ContextMenuView extends ReactViewGroup implements MenuItem.OnMenuItemClickListener, View.OnCreateContextMenuListener {
+    @Nullable ReadableArray actions;
 
     boolean cancelled = true;
 
@@ -57,18 +37,20 @@ public class ContextMenuView extends ReactViewGroup implements PopupMenu.OnMenuI
 
     protected boolean disabled = false;
 
+    private GestureDetector gestureDetector;
+
     public ContextMenuView(final Context context) {
         super(context);
 
-        contextMenu = new PopupMenu(getContext(), this);
-        contextMenu.setOnMenuItemClickListener(this);
-        contextMenu.setOnDismissListener(this);
+        this.setOnCreateContextMenuListener(this);
 
         gestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
             @Override
             public boolean onSingleTapConfirmed(MotionEvent e) {
                 if (dropdownMenuMode && !disabled) {
-                    contextMenu.show();
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                        showContextMenu(e.getX(), e.getY());
+                    }
                 }
                 return super.onSingleTapConfirmed(e);
             }
@@ -76,7 +58,9 @@ public class ContextMenuView extends ReactViewGroup implements PopupMenu.OnMenuI
             @Override
             public void onLongPress(MotionEvent e) {
                 if (!dropdownMenuMode && !disabled) {
-                    contextMenu.show();
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                        showContextMenu(e.getX(), e.getY());
+                    }
                 }
             }
         });
@@ -100,35 +84,36 @@ public class ContextMenuView extends ReactViewGroup implements PopupMenu.OnMenuI
         return true;
     }
 
-    public void setActions(@Nullable ReadableArray actions) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            contextMenu.setForceShowIcon(true);
-        }
-        Menu menu = contextMenu.getMenu();
-        menu.clear();
+    @Override
+    public void onCreateContextMenu(ContextMenu contextMenu, View view, ContextMenu.ContextMenuInfo contextMenuInfo) {
+        contextMenu.clear();
 
         for (int i = 0; i < actions.size(); i++) {
             ReadableMap action = actions.getMap(i);
             @Nullable Drawable systemIcon = getResourceWithName(getContext(), action.getString("systemIcon"));
             String title = action.getString("title");
             int order = i;
-            menu.add(Menu.NONE, Menu.NONE, order, title);
-            menu.getItem(i).setEnabled(!action.hasKey("disabled") || !action.getBoolean("disabled"));
+            contextMenu.add(Menu.NONE, Menu.NONE, order, title);
+            contextMenu.getItem(i).setEnabled(!action.hasKey("disabled") || !action.getBoolean("disabled"));
 
             if (action.hasKey("systemIconColor") && systemIcon != null) {
                 int color = Color.parseColor(action.getString("systemIconColor"));
                 systemIcon.setTint(color);
             }
-            menu.getItem(i).setIcon(systemIcon);
+            contextMenu.getItem(i).setIcon(systemIcon);
             if (action.hasKey("destructive") && action.getBoolean("destructive")) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    menu.getItem(i).setIconTintList(ColorStateList.valueOf(Color.RED));
+                    contextMenu.getItem(i).setIconTintList(ColorStateList.valueOf(Color.RED));
                 }
                 SpannableString redTitle = new SpannableString(title);
                 redTitle.setSpan(new ForegroundColorSpan(Color.RED), 0, title.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-                menu.getItem(i).setTitle(redTitle);
+                contextMenu.getItem(i).setTitle(redTitle);
             }
         }
+    }
+
+    public void setActions(@Nullable ReadableArray actions) {
+        this.actions = actions;
     }
 
     public void setDropdownMenuMode(@Nullable boolean enabled) {
@@ -148,16 +133,6 @@ public class ContextMenuView extends ReactViewGroup implements PopupMenu.OnMenuI
         event.putString("name", menuItem.getTitle().toString());
         reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(getId(), "onPress", event);
         return false;
-    }
-
-    @Override
-    public void onDismiss(PopupMenu popupMenu) {
-        if (cancelled) {
-            ReactContext reactContext = (ReactContext) getContext();
-            reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(getId(), "onCancel", null);
-        }
-
-        cancelled = true;
     }
 
     private Drawable getResourceWithName(Context context, @Nullable String systemIcon) {
