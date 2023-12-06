@@ -53,7 +53,6 @@ const App = () => {
         },
       ]} onPress={(event) => {
         const { index, indexPath, name } = event.nativeEvent;
-        console.log(indexPath);
         if (indexPath?.at(0) == 0) {
           // The first item is nested in a submenu
           setColor(name.toLowerCase());
