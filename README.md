@@ -1,6 +1,6 @@
 # react-native-context-menu-view
 
-Use native context menu functionality from React Native. On iOS 13+ this uses `UIMenu` functionality, and on Android it uses a `PopUpMenu`.
+Use native context menu functionality from React Native. On iOS 13+ this uses [`UIMenu`](https://developer.apple.com/documentation/uikit/uimenu) functionality, and on Android it uses a [`ContextMenu`](https://developer.android.com/reference/android/view/ContextMenu).
 
 On iOS 12 and below, nothing happens. You may wish to do a `Platform.OS === 'ios' && parseInt(Platform.Version, 10) <= 12` check, and add your own `onLongPress` handler.
 
@@ -60,13 +60,13 @@ Destructive items are rendered in red.
 
 Selected items have a checkmark next to them on iOS, and unchanged on Android.
 
-Nested menus are supported on iOS only and result in nested UIMenu which can be optionally displayed inline.
+Menus can be nested one level deep. On iOS submenus can be rendered inline optionally.
 
 ###### `onPress`
 
 Optional. When the popup is opened and the user picks an option. Called with `{ nativeEvent: { index, indexPath, name } }`. When a nested action is selected the top level parent index is used for the callback.
 
-iOS only: to get the full path to the item, `indexPath` is an array of indices to reach the item. For a top-levle item, it'll be an array with a single index. For an item one deep, it'll be an array with two indicies.
+To get the full path to the item, `indexPath` is an array of indices to reach the item. For a top-levle item, it'll be an array with a single index. For an item one deep, it'll be an array with two indicies.
 
 ###### `onPreviewPress`
 
@@ -82,7 +82,7 @@ Optional. The background color of the preview. This is displayed underneath your
 
 ###### `dropdownMenuMode`
 
-Optional. When set to `true`, the context menu is triggered with a single tap instead of a long press, and a preview is not show and no blur occurs. Uses the iOS 14 Menu API and a simple tap listener on android.
+Optional. When set to `true`, the context menu is triggered with a single tap instead of a long press, and a preview is not show and no blur occurs. Uses the iOS 14 Menu API on iOS and a simple tap listener on android.
 
 ###### `disabled`
 
