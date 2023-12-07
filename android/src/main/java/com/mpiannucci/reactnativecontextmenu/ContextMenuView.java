@@ -28,6 +28,8 @@ import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.facebook.react.views.view.ReactViewGroup;
 
+import java.lang.reflect.Method;
+
 import javax.annotation.Nullable;
 
 public class ContextMenuView extends ReactViewGroup implements View.OnCreateContextMenuListener {
@@ -89,6 +91,7 @@ public class ContextMenuView extends ReactViewGroup implements View.OnCreateCont
     @Override
     public void onCreateContextMenu(ContextMenu contextMenu, View view, ContextMenu.ContextMenuInfo contextMenuInfo) {
         contextMenu.clear();
+        setMenuIconDisplay(contextMenu, true);
 
         for (int i = 0; i < actions.size(); i++) {
             ReadableMap action = actions.getMap(i);
@@ -120,9 +123,14 @@ public class ContextMenuView extends ReactViewGroup implements View.OnCreateCont
         String title = action.getString("title");
         Menu parentMenu = menu.addSubMenu(title);
 
+        @Nullable Drawable systemIcon = getResourceWithName(getContext(), action.getString("systemIcon"));
+        menu.getItem(i).setIcon(systemIcon);  // set icon to current item.
+
         for (int j = 0; j < childActions.size(); j++) {
             createContextMenuAction(parentMenu, childActions.getMap(j), j, i);
         }
+
+        parentMenu.setGroupVisible(0, true);
     }
 
     private void createContextMenuAction(Menu menu, ReadableMap action, int i, int parentIndex) {
@@ -165,6 +173,16 @@ public class ContextMenuView extends ReactViewGroup implements View.OnCreateCont
                 return false;
             }
         });
+    }
+
+    // Call this function after menu created. Both submenu and root menu should call this function.
+    private void setMenuIconDisplay(Menu contextMenu, boolean display) {
+        try {
+            Class<?> clazz = Class.forName("com.android.internal.view.menu.MenuBuilder");
+            Method m = clazz.getDeclaredMethod("setOptionalIconsVisible", boolean.class);
+            m.setAccessible(true);
+            m.invoke(contextMenu, display);
+        } catch (Exception ignored) {}
     }
 
     private Drawable getResourceWithName(Context context, @Nullable String systemIcon) {
