@@ -13,6 +13,8 @@
 @property (nonnull, nonatomic, copy) NSString* title;
 @property (nonnull, nonatomic, copy) NSString* subtitle;
 @property (nullable, nonatomic, copy) NSString* systemIcon;
+@property (nullable, nonatomic, copy) NSString* customIcon;
+@property (nullable, nonatomic, copy) UIColor* customIconColor;
 @property (nonatomic, assign) BOOL destructive;
 @property (nonatomic, assign) BOOL selected;
 @property (nonatomic, assign) BOOL disabled;
