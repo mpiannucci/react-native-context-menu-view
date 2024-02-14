@@ -1,5 +1,10 @@
 import React, { Component } from "react";
-import { NativeSyntheticEvent, ViewProps, ViewStyle } from "react-native";
+import {
+  NativeSyntheticEvent,
+  ViewProps,
+  ViewStyle,
+  ProcessedColorValue,
+} from "react-native";
 
 export interface ContextMenuAction {
   /**
@@ -18,6 +23,14 @@ export interface ContextMenuAction {
    * Color of icon. (Android only)
    */
   systemIconColor?: string;
+  /**
+   * The custom icon to use. This is the name of the svg that is provided in Assets.xcassets. (iOS only)
+   */
+  customIcon?: string;
+  /**
+   * Color of custom icon. (default: black, iOS only)
+   */
+  customIconColor?: ProcessedColorValue | null;
   /**
    * Destructive items are rendered in red on iOS, and unchanged on Android. (default: false)
    */
