@@ -48,13 +48,17 @@ Optional. The title above the popup menu.
 
 ###### `actions`
 
-Array of `{ title: string, subtitle?: string, systemIcon?: string, systemIconColor?: string, destructive?: boolean, selected?: boolean, disabled?: boolean, disabled?: boolean, inlineChildren?: boolean, actions?: Array<ContextMenuAction> }`.
+Array of `{ title: string, subtitle?: string, systemIcon?: string, systemIconColor?: string, customIcon?: string, customIconColor?: ProcessedColorValue | null, destructive?: boolean, selected?: boolean, disabled?: boolean, disabled?: boolean, inlineChildren?: boolean, actions?: Array<ContextMenuAction> }`.
 
 Subtitle is only available on iOS 15+.
 
 System icon refers to an icon name within [SF Symbols](https://developer.apple.com/design/human-interface-guidelines/sf-symbols/overview/) on IOS and Drawable name on Android.
 
 System icon color is only available on Android.
+
+Custom icon is iOS only and refers to an svg name that is provided in Assets.xcassets.
+
+Custom icon color is iOS only and needs to be provided in this format: processColor('#385858') or processColor('green'). processColor() is from the react-native library.
 
 Destructive items are rendered in red.
 
@@ -66,7 +70,7 @@ Menus can be nested one level deep. On iOS submenus can be rendered inline optio
 
 Optional. When the popup is opened and the user picks an option. Called with `{ nativeEvent: { index, indexPath, name } }`. When a nested action is selected the top level parent index is used for the callback.
 
-To get the full path to the item, `indexPath` is an array of indices to reach the item. For a top-levle item, it'll be an array with a single index. For an item one deep, it'll be an array with two indicies.
+To get the full path to the item, `indexPath` is an array of indices to reach the item. For a top-level item, it'll be an array with a single index. For an item one deep, it'll be an array with two indexes.
 
 ###### `onPreviewPress`
 
@@ -74,7 +78,7 @@ Optional, iOS only. When the context menu preview is tapped.
 
 ###### `onCancel`
 
-Optional. When the popop is opened and the user cancels.
+Optional. When the popup is opened and the user cancels.
 
 ###### `previewBackgroundColor`
 
