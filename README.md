@@ -56,7 +56,7 @@ System icon refers to an icon name within [SF Symbols](https://developer.apple.c
 
 System icon color is only available on Android.
 
-Custom icon is iOS only and refers to an svg name that is provided in Assets.xcassets.
+Custom icon is iOS only and refers to an svg asset name that is provided in Assets.xcassets. When both systemIcon and customIcon are provided, customIcon will take a higher priority and it will override systemIcon.
 
 Custom icon color is iOS only and needs to be provided in this format: processColor('#385858') or processColor('green'). processColor() is from the react-native library.
 
