@@ -16,21 +16,17 @@ export interface ContextMenuAction {
    */
   subtitle?: string;
   /**
-   * The icon to use. This is the name of the SFSymbols icon to use on IOS and name of the Drawable to use on Android.
+   * The system icon to use. This is the name of the SFSymbols icon (iOS only).
    */
   systemIcon?: string;
   /**
-   * Color of icon. (Android only)
+   * The icon to use. This is the name of the SVG that is provided in Assets.xcassets (iOS) or the name of the Drawable (Android). It overrides the systemIcon prop.
    */
-  systemIconColor?: string;
+  icon?: string;
   /**
-   * The custom icon to use. This is the name of the svg that is provided in Assets.xcassets. (iOS only)
+   * Color of the icon (default: black). The color only applies to the icon provided to the icon prop, as the color of the systemIcon is always black and cannot be changed with this prop.
    */
-  customIcon?: string;
-  /**
-   * Color of custom icon. (default: black, iOS only)
-   */
-  customIconColor?: ProcessedColorValue | null;
+  iconColor?: string;
   /**
    * Destructive items are rendered in red on iOS, and unchanged on Android. (default: false)
    */
