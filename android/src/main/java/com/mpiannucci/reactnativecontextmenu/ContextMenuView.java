@@ -123,8 +123,8 @@ public class ContextMenuView extends ReactViewGroup implements View.OnCreateCont
         String title = action.getString("title");
         Menu parentMenu = menu.addSubMenu(title);
 
-        @Nullable Drawable systemIcon = getResourceWithName(getContext(), action.getString("systemIcon"));
-        menu.getItem(i).setIcon(systemIcon);  // set icon to current item.
+        @Nullable Drawable icon = getResourceWithName(getContext(), action.getString("icon"));
+        menu.getItem(i).setIcon(icon);  // set icon to current item.
 
         for (int j = 0; j < childActions.size(); j++) {
             createContextMenuAction(parentMenu, childActions.getMap(j), j, i);
@@ -135,16 +135,16 @@ public class ContextMenuView extends ReactViewGroup implements View.OnCreateCont
 
     private void createContextMenuAction(Menu menu, ReadableMap action, int i, int parentIndex) {
         String title = action.getString("title");
-        @Nullable Drawable systemIcon = getResourceWithName(getContext(), action.getString("systemIcon"));
+        @Nullable Drawable icon = getResourceWithName(getContext(), action.getString("icon"));
 
         MenuItem item = menu.add(Menu.NONE, Menu.NONE, i, title);
         item.setEnabled(!action.hasKey("disabled") || !action.getBoolean("disabled"));
 
-        if (action.hasKey("systemIconColor") && systemIcon != null) {
-            int color = Color.parseColor(action.getString("systemIconColor"));
-            systemIcon.setTint(color);
+        if (action.hasKey("iconColor") && icon != null) {
+            int color = Color.parseColor(action.getString("iconColor"));
+            icon.setTint(color);
         }
-        item.setIcon(systemIcon);
+        item.setIcon(icon);
         if (action.hasKey("destructive") && action.getBoolean("destructive")) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 item.setIconTintList(ColorStateList.valueOf(Color.RED));
@@ -185,12 +185,12 @@ public class ContextMenuView extends ReactViewGroup implements View.OnCreateCont
         } catch (Exception ignored) {}
     }
 
-    private Drawable getResourceWithName(Context context, @Nullable String systemIcon) {
-        if (systemIcon == null)
+    private Drawable getResourceWithName(Context context, @Nullable String icon) {
+        if (icon == null)
             return null;
 
         Resources resources = context.getResources();
-        int resourceId = resources.getIdentifier(systemIcon, "drawable", context.getPackageName());
+        int resourceId = resources.getIdentifier(icon, "drawable", context.getPackageName());
         try {
             return resourceId != 0 ? ResourcesCompat.getDrawable(resources, resourceId, context.getTheme()) : null;
         } catch (Exception e) {
