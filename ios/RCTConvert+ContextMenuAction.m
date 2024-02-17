@@ -16,8 +16,8 @@
     action.title = [self NSString:json[@"title"]];
     action.subtitle = [self NSString:json[@"subtitle"]];
     action.systemIcon = [self NSString:json[@"systemIcon"]];
-    action.customIcon = [self NSString:json[@"customIcon"]];
-    action.customIconColor = json[@"customIconColor"] ? [RCTConvert UIColor:json[@"customIconColor"]] : nil;
+    action.icon = [self NSString:json[@"icon"]];
+    action.iconColor = json[@"iconColor"] ? [RCTConvert UIColor:json[@"iconColor"]] : nil;
     action.destructive = [self BOOL:json[@"destructive"]];
     action.selected = [self BOOL:json[@"selected"]];
     action.disabled = [self BOOL:json[@"disabled"]];

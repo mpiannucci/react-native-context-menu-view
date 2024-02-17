@@ -122,14 +122,14 @@
     UIMenuElement* menuElement = nil;
     UIImage *iconImage = nil;
 
-    if (action.customIcon != nil) {
+    if (action.icon != nil) {
         UIColor *iconColor = [UIColor blackColor];
 
-        if (action.customIconColor != nil) {
-            iconColor = action.customIconColor;
+        if (action.iconColor != nil) {
+            iconColor = action.iconColor;
         }
         // Use custom icon from Assets.xcassets
-        iconImage = [[UIImage imageNamed:action.customIcon] imageWithTintColor:iconColor];
+        iconImage = [[UIImage imageNamed:action.icon] imageWithTintColor:iconColor];
     } else {
         // Use system icon from SF Symbols
         iconImage = [UIImage systemImageNamed:action.systemIcon];
