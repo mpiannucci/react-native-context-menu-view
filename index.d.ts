@@ -44,7 +44,7 @@ export interface ContextMenuAction {
    */
   inlineChildren?: boolean;
   /**
-   * Child actions. When child actions are supplied, the childs callback will contain its name but the same index as the topmost parent menu/action index
+   * Child actions. When child actions are supplied, the child's callback will contain its name but the same index as the topmost parent menu/action index
    */
   actions?: Array<ContextMenuAction>;
 }
