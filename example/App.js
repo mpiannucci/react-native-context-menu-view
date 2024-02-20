@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { SafeAreaView, View, StyleSheet, Platform, TouchableOpacity, Alert } from 'react-native';
+import { SafeAreaView, View, StyleSheet, Platform, TouchableOpacity, Alert, processColor } from 'react-native';
 import ContextMenu from 'react-native-context-menu-view';
 
 const Icons = Platform.select({
@@ -42,6 +42,11 @@ const App = () => {
           title: 'Transparent',
           systemIcon: Icons.transparent,
           destructive: true,
+        },
+        {
+          title: 'Custom Icon and Color',
+          customIcon: Platform.OS === 'ios' ? 'bluetooth' : '',
+          customIconColor: Platform.OS === 'ios' ? processColor('green') : '',
         },
         {
           title: 'Toggle Circle',

@@ -120,6 +120,21 @@
 
 - (UIMenuElement*) createMenuElementForAction:(ContextMenuAction *)action atIndexPath:(NSArray<NSNumber *> *)indexPath {
     UIMenuElement* menuElement = nil;
+    UIImage *iconImage = nil;
+
+    if (action.icon != nil) {
+        UIColor *iconColor = [UIColor blackColor];
+
+        if (action.iconColor != nil) {
+            iconColor = action.iconColor;
+        }
+        // Use custom icon from Assets.xcassets
+        iconImage = [[UIImage imageNamed:action.icon] imageWithTintColor:iconColor];
+    } else {
+        // Use system icon from SF Symbols
+        iconImage = [UIImage systemImageNamed:action.systemIcon];
+    }
+    
     if (action.actions != nil && action.actions.count > 0) {
       NSMutableArray<UIMenuElement*> *children = [[NSMutableArray alloc] init];
       [action.actions enumerateObjectsUsingBlock:^(ContextMenuAction * _Nonnull childAction, NSUInteger childIdx, BOOL * _Nonnull stop) {
@@ -134,7 +149,7 @@
         (action.inlineChildren ? UIMenuOptionsDisplayInline : 0) |
         (action.destructive ? UIMenuOptionsDestructive : 0);
       UIMenu *actionMenu = [UIMenu menuWithTitle:action.title
-                                           image:[UIImage systemImageNamed:action.systemIcon]
+                                           image:iconImage
                                       identifier:nil
                                          options:actionMenuOptions
                                         children:children];
@@ -146,7 +161,7 @@
       menuElement = actionMenu;
     } else {
       UIAction* actionMenuItem =
-        [UIAction actionWithTitle:action.title image:[UIImage systemImageNamed:action.systemIcon] identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+        [UIAction actionWithTitle:action.title image:iconImage identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
           if (self.onPress != nil) {
             self->_cancelled = false;
             self.onPress(@{

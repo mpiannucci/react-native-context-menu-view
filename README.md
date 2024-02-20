@@ -42,48 +42,56 @@ See `example/` for basic usage.
 
 ## Props
 
-###### `title`
+### `title`
 
 Optional. The title above the popup menu.
 
-###### `actions`
+### `actions`
 
-Array of `{ title: string, subtitle?: string, systemIcon?: string, systemIconColor?: string, destructive?: boolean, selected?: boolean, disabled?: boolean, disabled?: boolean, inlineChildren?: boolean, actions?: Array<ContextMenuAction> }`.
+Array of `{ title: string, subtitle?: string, systemIcon?: string, icon?: string, iconColor?: string, destructive?: boolean, selected?: boolean, disabled?: boolean, disabled?: boolean, inlineChildren?: boolean, actions?: Array<ContextMenuAction> }`.
 
-Subtitle is only available on iOS 15+.
+- `title` is the title of the action
 
-System icon refers to an icon name within [SF Symbols](https://developer.apple.com/design/human-interface-guidelines/sf-symbols/overview/) on IOS and Drawable name on Android.
+- `subtitle` is the subtitle of the action (iOS 15+ only)
 
-System icon color is only available on Android.
+- `systemIcon` refers to an icon name within [SF Symbols](https://developer.apple.com/design/human-interface-guidelines/sf-symbols/overview/) (iOS only)
 
-Destructive items are rendered in red.
+- `icon` refers to an SVG asset name that is provided in Assets.xcassets or to a Drawable on Android; when both `systemIcon` and `icon` are provided, `icon` will take a higher priority and it will override `systemIcon`
 
-Selected items have a checkmark next to them on iOS, and unchanged on Android.
+- `iconColor` will change the color of the icon provided to the `icon` prop and has no effect on `systemIcon` (default: black)
 
-Menus can be nested one level deep. On iOS submenus can be rendered inline optionally.
+- `destructive` items are rendered in red (iOS only, default: false)
 
-###### `onPress`
+- `selected` items have a checkmark next to them (iOS only, default: false)
+
+- `disabled` marks whether the action is disabled or not (default: false)
+
+- `actions` will provide a one level deep nested menu; when child actions are supplied, the child's callback will contain its name but the same index as the topmost parent menu/action index
+
+- `inlineChildren` marks whether its children (if any) should be rendered inline instead of in their own child menu (iOS only, default: false)
+
+### `onPress`
 
 Optional. When the popup is opened and the user picks an option. Called with `{ nativeEvent: { index, indexPath, name } }`. When a nested action is selected the top level parent index is used for the callback.
 
-To get the full path to the item, `indexPath` is an array of indices to reach the item. For a top-levle item, it'll be an array with a single index. For an item one deep, it'll be an array with two indicies.
+To get the full path to the item, `indexPath` is an array of indices to reach the item. For a top-level item, it'll be an array with a single index. For an item one deep, it'll be an array with two indexes.
 
-###### `onPreviewPress`
+### `onPreviewPress`
 
 Optional, iOS only. When the context menu preview is tapped.
 
-###### `onCancel`
+### `onCancel`
 
-Optional. When the popop is opened and the user cancels.
+Optional. When the popup is opened and the user cancels.
 
-###### `previewBackgroundColor`
+### `previewBackgroundColor`
 
 Optional. The background color of the preview. This is displayed underneath your view. Set this to transparent (or another color) if the default causes issues.
 
-###### `dropdownMenuMode`
+### `dropdownMenuMode`
 
 Optional. When set to `true`, the context menu is triggered with a single tap instead of a long press, and a preview is not show and no blur occurs. Uses the iOS 14 Menu API on iOS and a simple tap listener on android.
 
-###### `disabled`
+### `disabled`
 
 Optional. Disable menu interaction.
