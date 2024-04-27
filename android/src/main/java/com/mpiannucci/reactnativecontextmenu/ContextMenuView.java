@@ -79,7 +79,8 @@ public class ContextMenuView extends ReactViewGroup implements View.OnCreateCont
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-        return true;
+        gestureDetector.onTouchEvent(ev);
+        return super.onInterceptTouchEvent(ev);
     }
 
     @Override
