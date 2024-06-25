@@ -37,6 +37,8 @@ public class ContextMenuView extends ReactViewGroup implements View.OnCreateCont
 
     boolean cancelled = true;
 
+    int[] longPressStartLocation = new int[2];
+
     protected boolean dropdownMenuMode = false;
 
     protected boolean disabled = false;
@@ -61,11 +63,31 @@ public class ContextMenuView extends ReactViewGroup implements View.OnCreateCont
 
             @Override
             public void onLongPress(MotionEvent e) {
+                int[] location = new int[2];
+                getLocationOnScreen(location);
+
+                int dx = location[0] - longPressStartLocation[0];
+                int dy = location[1] - longPressStartLocation[1];
+                double distance = Math.sqrt(dx * dx + dy * dy);
+                // Cancel long press if the user moves their finger more than 10 pixels
+                // (e.g. the context menu is used inside the scrollable component and it
+                // moves as the user scrolls)
+                if (distance > 10) {
+                    cancelled = true;
+                    return;
+                }
+
                 if (!dropdownMenuMode && !disabled) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                         showContextMenu(e.getX(), e.getY());
                     }
                 }
+            }
+
+            @Override
+            public boolean onDown(MotionEvent e) {
+                getLocationOnScreen(longPressStartLocation);
+                return super.onDown(e);
             }
         });
     }
