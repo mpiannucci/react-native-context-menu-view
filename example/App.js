@@ -68,8 +68,8 @@ const App = () => {
           } else {
             setColor(previousColor);
           }
-        } else if (index == 2) {
-          setCircle(!circle)
+        } else if (index == 3) {
+          setCircle(!circle);
         }
       }} onCancel={() => {
         console.warn('CANCELLED')
