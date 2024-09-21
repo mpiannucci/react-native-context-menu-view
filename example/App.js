@@ -45,8 +45,8 @@ const App = () => {
         },
         (Platform.OS === 'ios' ? {
           title: 'Custom Icon and Color',
-          customIcon: Platform.OS === 'ios' ? 'bluetooth' : '',
-          customIconColor: Platform.OS === 'ios' ? processColor('green') : '',
+          customIcon: 'bluetooth',
+          customIconColor: processColor('green'),
         } :
         {
           title: 'Custom Icon and Color',
