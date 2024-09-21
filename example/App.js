@@ -43,11 +43,16 @@ const App = () => {
           systemIcon: Icons.transparent,
           destructive: true,
         },
-        {
+        (Platform.OS === 'ios' ? {
           title: 'Custom Icon and Color',
           customIcon: Platform.OS === 'ios' ? 'bluetooth' : '',
           customIconColor: Platform.OS === 'ios' ? processColor('green') : '',
-        },
+        } :
+        {
+          title: 'Custom Icon and Color',
+          icon: 'outline_circle',
+          iconColor: 'green',
+        }),
         {
           title: 'Toggle Circle',
           systemIcon: Icons.toggleCircle,
