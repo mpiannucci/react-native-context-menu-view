@@ -118,6 +118,19 @@
                                             target:previewTarget];
 }
 
+- (UITargetedPreview *)contextMenuInteraction:(UIContextMenuInteraction *)interaction previewForDismissingMenuWithConfiguration:(UIContextMenuConfiguration *)configuration API_AVAILABLE(ios(13.0)) {
+    UIPreviewTarget* previewTarget = [[UIPreviewTarget alloc] initWithContainer:self center:self.reactSubviews.firstObject.center];
+    UIPreviewParameters* previewParams = [[UIPreviewParameters alloc] init];
+
+    if (_previewBackgroundColor != nil) {
+      previewParams.backgroundColor = _previewBackgroundColor;
+    }
+
+    return [[UITargetedPreview alloc] initWithView:self.reactSubviews.firstObject
+                                        parameters:previewParams
+                                            target:previewTarget];
+}
+
 - (UIMenuElement*) createMenuElementForAction:(ContextMenuAction *)action atIndexPath:(NSArray<NSNumber *> *)indexPath {
     UIMenuElement* menuElement = nil;
     UIImage *iconImage = nil;
