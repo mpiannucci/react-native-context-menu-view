@@ -119,14 +119,21 @@
 }
 
 - (UITargetedPreview *)contextMenuInteraction:(UIContextMenuInteraction *)interaction previewForDismissingMenuWithConfiguration:(UIContextMenuConfiguration *)configuration API_AVAILABLE(ios(13.0)) {
-    UIPreviewTarget* previewTarget = [[UIPreviewTarget alloc] initWithContainer:self center:self.reactSubviews.firstObject.center];
+    UIView *hostView = self.reactSubviews.firstObject;
+    
+    if (!hostView.window) {
+        // The view is no longer available; it was unmounted.
+        return nil;
+    }
+    
+    UIPreviewTarget* previewTarget = [[UIPreviewTarget alloc] initWithContainer:self center:hostView.center];
     UIPreviewParameters* previewParams = [[UIPreviewParameters alloc] init];
 
     if (_previewBackgroundColor != nil) {
       previewParams.backgroundColor = _previewBackgroundColor;
     }
-
-    return [[UITargetedPreview alloc] initWithView:self.reactSubviews.firstObject
+    
+    return [[UITargetedPreview alloc] initWithView:hostView
                                         parameters:previewParams
                                             target:previewTarget];
 }
