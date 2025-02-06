@@ -105,16 +105,65 @@
   }
 }
 
+- (UIPreviewParameters *)getPreviewParams {
+    UIPreviewParameters* previewParams = [[UIPreviewParameters alloc] init];
+    
+    if (_previewBackgroundColor != nil) {
+        previewParams.backgroundColor = _previewBackgroundColor;
+    }
+    
+    if (self.borderRadius > -1 ||
+        self.borderTopLeftRadius > -1 ||
+        self.borderTopRightRadius > -1 ||
+        self.borderBottomRightRadius > -1 ||
+        self.borderBottomLeftRadius > -1) {
+        
+        CGFloat radius = self.borderRadius > -1 ? self.borderRadius : 0;
+        CGFloat topLeftRadius = self.borderTopLeftRadius > -1 ? self.borderTopLeftRadius : radius;
+        CGFloat topRightRadius = self.borderTopRightRadius > -1 ? self.borderTopRightRadius : radius;
+        CGFloat bottomRightRadius = self.borderBottomRightRadius > -1 ? self.borderBottomRightRadius : radius;
+        CGFloat bottomLeftRadius = self.borderBottomLeftRadius > -1 ? self.borderBottomLeftRadius : radius;
+        
+        UIBezierPath *path = [UIBezierPath bezierPath];
+        CGRect bounds = self.bounds;
+        
+        [path moveToPoint: CGPointMake(CGRectGetMinX(bounds) + topLeftRadius, CGRectGetMinY(bounds))];
+
+        [path addLineToPoint: CGPointMake(CGRectGetMaxX(bounds) - topRightRadius, CGRectGetMinY(bounds))];
+        [path addQuadCurveToPoint: CGPointMake(CGRectGetMaxX(bounds), CGRectGetMinY(bounds) + topRightRadius)
+                    controlPoint: CGPointMake(CGRectGetMaxX(bounds), CGRectGetMinY(bounds))];
+
+        [path addLineToPoint: CGPointMake(CGRectGetMaxX(bounds), CGRectGetMaxY(bounds) - bottomRightRadius)];
+        [path addQuadCurveToPoint: CGPointMake(CGRectGetMaxX(bounds) - bottomRightRadius, CGRectGetMaxY(bounds))
+                    controlPoint: CGPointMake(CGRectGetMaxX(bounds), CGRectGetMaxY(bounds))];
+
+        [path addLineToPoint: CGPointMake(CGRectGetMinX(bounds) + bottomLeftRadius, CGRectGetMaxY(bounds))];
+        [path addQuadCurveToPoint: CGPointMake(CGRectGetMinX(bounds), CGRectGetMaxY(bounds) - bottomLeftRadius)
+                    controlPoint: CGPointMake(CGRectGetMinX(bounds), CGRectGetMaxY(bounds))];
+
+        [path addLineToPoint: CGPointMake(CGRectGetMinX(bounds), CGRectGetMinY(bounds) + topLeftRadius)];
+        [path addQuadCurveToPoint: CGPointMake(CGRectGetMinX(bounds) + topLeftRadius, CGRectGetMinY(bounds))
+                    controlPoint: CGPointMake(CGRectGetMinX(bounds), CGRectGetMinY(bounds))];
+        
+        [path closePath];
+        
+        previewParams.visiblePath = path;
+    }
+    
+    
+    if (self.disableShadow) {
+        previewParams.shadowPath = [UIBezierPath bezierPath];
+    }
+    
+    return previewParams;
+}
+
 - (UITargetedPreview *)contextMenuInteraction:(UIContextMenuInteraction *)interaction previewForHighlightingMenuWithConfiguration:(UIContextMenuConfiguration *)configuration API_AVAILABLE(ios(13.0)) {
     UIPreviewTarget* previewTarget = [[UIPreviewTarget alloc] initWithContainer:self center:self.reactSubviews.firstObject.center];
-    UIPreviewParameters* previewParams = [[UIPreviewParameters alloc] init];
-
-    if (_previewBackgroundColor != nil) {
-      previewParams.backgroundColor = _previewBackgroundColor;
-    }
-
+    
+    
     return [[UITargetedPreview alloc] initWithView:self.reactSubviews.firstObject
-                                        parameters:previewParams
+                                        parameters:[self getPreviewParams]
                                             target:previewTarget];
 }
 
@@ -127,14 +176,9 @@
     }
     
     UIPreviewTarget* previewTarget = [[UIPreviewTarget alloc] initWithContainer:self center:hostView.center];
-    UIPreviewParameters* previewParams = [[UIPreviewParameters alloc] init];
-
-    if (_previewBackgroundColor != nil) {
-      previewParams.backgroundColor = _previewBackgroundColor;
-    }
     
     return [[UITargetedPreview alloc] initWithView:hostView
-                                        parameters:previewParams
+                                        parameters:[self getPreviewParams]
                                             target:previewTarget];
 }
 

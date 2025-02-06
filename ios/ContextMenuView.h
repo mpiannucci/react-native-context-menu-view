@@ -19,5 +19,11 @@
 @property (nullable, nonatomic, copy) NSArray<ContextMenuAction*>* actions;
 @property (nullable, nonatomic, copy) UIColor* previewBackgroundColor;
 @property (nonatomic, assign) BOOL disabled;
+@property (nonatomic, assign) CGFloat borderRadius;
+@property (nonatomic, assign) CGFloat borderTopLeftRadius; 
+@property (nonatomic, assign) CGFloat borderTopRightRadius;
+@property (nonatomic, assign) CGFloat borderBottomRightRadius;
+@property (nonatomic, assign) CGFloat borderBottomLeftRadius;
+@property (nonatomic, assign) BOOL disableShadow;
 
 @end
