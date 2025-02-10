@@ -95,3 +95,21 @@ Optional. When set to `true`, the context menu is triggered with a single tap in
 ### `disabled`
 
 Optional. Disable menu interaction.
+
+### `borderRadius`
+Optional, iOS only. Sets the border radius for all corners of the preview. Can be overridden by individual corner settings.
+
+### `borderTopLeftRadius`
+Optional, iOS only. Sets the border radius specifically for the top left corner of the preview.
+
+### `borderTopRightRadius`
+Optional, iOS only. Sets the border radius specifically for the top right corner of the preview.
+
+### `borderBottomRightRadius`
+Optional, iOS only. Sets the border radius specifically for the bottom right corner of the preview.
+
+### `borderBottomLeftRadius`
+Optional, iOS only. Sets the border radius specifically for the bottom left corner of the preview.
+
+### `disableShadow`
+Optional, iOS only. When set to `true`, removes the shadow from the preview. Default is `false`.

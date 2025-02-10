@@ -19,6 +19,12 @@ RCT_EXPORT_VIEW_PROPERTY(disabled, BOOL)
 RCT_CUSTOM_VIEW_PROPERTY(previewBackgroundColor, UIColor, ContextMenuView) {
   view.previewBackgroundColor = json != nil ? [RCTConvert UIColor:json] : nil;
 }
+RCT_EXPORT_VIEW_PROPERTY(borderRadius, CGFloat)
+RCT_EXPORT_VIEW_PROPERTY(borderTopLeftRadius, CGFloat)
+RCT_EXPORT_VIEW_PROPERTY(borderTopRightRadius, CGFloat)
+RCT_EXPORT_VIEW_PROPERTY(borderBottomRightRadius, CGFloat)
+RCT_EXPORT_VIEW_PROPERTY(borderBottomLeftRadius, CGFloat)
+RCT_EXPORT_VIEW_PROPERTY(disableShadow, BOOL)
 RCT_CUSTOM_VIEW_PROPERTY(dropdownMenuMode, BOOL, ContextMenuView) {
     if (@available(iOS 14.0, *)) {
         view.showsMenuAsPrimaryAction = json != nil ? [RCTConvert BOOL:json] : view.showsMenuAsPrimaryAction;

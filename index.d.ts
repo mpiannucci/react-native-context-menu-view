@@ -96,6 +96,30 @@ export interface ContextMenuProps extends ViewProps {
    * Children prop as per upgrade docs: https://reactjs.org/blog/2022/03/08/react-18-upgrade-guide.html#updates-to-typescript-definitions
    */
   children?: React.ReactNode;
+  /**
+   * Border radius for all corners
+   */
+  borderRadius?: number;
+  /**
+   * Border radius for top left corner
+   */
+  borderTopLeftRadius?: number;
+  /**
+   * Border radius for top right corner
+   */
+  borderTopRightRadius?: number;
+  /**
+   * Border radius for bottom right corner
+   */
+  borderBottomRightRadius?: number;
+  /**
+   * Border radius for bottom left corner
+   */
+  borderBottomLeftRadius?: number;
+  /**
+   * Disable shadow in preview
+   */
+  disableShadow?: boolean;
 }
 
-export default class ContextMenu extends Component<ContextMenuProps> {}
+export default class ContextMenu extends Component<ContextMenuProps> { }
