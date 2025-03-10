@@ -187,10 +187,20 @@
     UIImage *iconImage = nil;
 
     if (action.icon != nil) {
-        UIColor *iconColor = [UIColor blackColor];
+        UIColor *iconColor;
 
         if (action.iconColor != nil) {
             iconColor = action.iconColor;
+        } else {
+            // Default color depends on dark mode
+            if (@available(iOS 13.0, *)) {
+                UIUserInterfaceStyle currentStyle = [UITraitCollection currentTraitCollection].userInterfaceStyle;
+                iconColor = (currentStyle == UIUserInterfaceStyleDark) ? [UIColor whiteColor] : [UIColor blackColor];
+            }
+            // Fallback for iOS < 13
+            else {
+                iconColor = [UIColor blackColor]; 
+            }
         }
         // Use custom icon from Assets.xcassets
         iconImage = [[UIImage imageNamed:action.icon] imageWithTintColor:iconColor];
