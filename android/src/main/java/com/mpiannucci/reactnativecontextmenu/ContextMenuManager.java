@@ -50,6 +50,11 @@ public class ContextMenuManager extends ViewGroupManager<ContextMenuView> {
         view.setDisabled(disabled);
     }
 
+    @ReactProp(name = "fontName")
+    public void setFontName(ContextMenuView view, @Nullable String fontName) {
+        view.setFontName(fontName);
+    }
+
     @androidx.annotation.Nullable
     @Override
     public Map<String, Object> getExportedCustomDirectEventTypeConstants() {

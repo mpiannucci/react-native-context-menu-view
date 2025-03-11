@@ -4,11 +4,15 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.text.SpannableString;
 import android.text.Spanned;
+import android.text.TextPaint;
 import android.text.style.ForegroundColorSpan;
+import android.text.style.TypefaceSpan;
 import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -34,6 +38,7 @@ import javax.annotation.Nullable;
 
 public class ContextMenuView extends ReactViewGroup implements View.OnCreateContextMenuListener {
     @Nullable ReadableArray actions;
+    @Nullable private String fontName; // Default font name
 
     boolean cancelled = true;
 
@@ -44,6 +49,46 @@ public class ContextMenuView extends ReactViewGroup implements View.OnCreateCont
     protected boolean disabled = false;
 
     private GestureDetector gestureDetector;
+
+    private static class CustomTypefaceSpan extends TypefaceSpan {
+        private final Typeface newType;
+
+        public CustomTypefaceSpan(String family, Typeface type) {
+            super(family);
+            newType = type;
+        }
+
+        @Override
+        public void updateDrawState(TextPaint ds) {
+            applyCustomTypeFace(ds, newType);
+        }
+
+        @Override
+        public void updateMeasureState(TextPaint paint) {
+            applyCustomTypeFace(paint, newType);
+        }
+
+        private static void applyCustomTypeFace(Paint paint, Typeface tf) {
+            int oldStyle;
+            Typeface old = paint.getTypeface();
+            if (old == null) {
+                oldStyle = 0;
+            } else {
+                oldStyle = old.getStyle();
+            }
+
+            int fake = oldStyle & ~tf.getStyle();
+            if ((fake & Typeface.BOLD) != 0) {
+                paint.setFakeBoldText(true);
+            }
+
+            if ((fake & Typeface.ITALIC) != 0) {
+                paint.setTextSkewX(-0.25f);
+            }
+
+            paint.setTypeface(tf);
+        }
+    }
 
     public ContextMenuView(final Context context) {
         super(context);
@@ -142,9 +187,36 @@ public class ContextMenuView extends ReactViewGroup implements View.OnCreateCont
         this.disabled = disabled;
     }
 
+    public void setFontName(@Nullable String fontName) {
+        this.fontName = fontName;
+    }
+
+    private Typeface getCustomFont() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P && fontName != null) {
+            try {
+                Resources resources = getContext().getResources();
+                int fontId = resources.getIdentifier(fontName, "font", getContext().getPackageName());
+                if (fontId != 0) {
+                    return ResourcesCompat.getFont(getContext(), fontId);
+                }
+            } catch (Exception e) {
+                // Fallback to default font if custom font is not available
+            }
+        }
+        return null;
+    }
+
     private void createContextMenuSubMenu(Menu menu, ReadableMap action, ReadableArray childActions, int i) {
         String title = action.getString("title");
-        Menu parentMenu = menu.addSubMenu(title);
+
+        // Apply custom font to submenu title
+        SpannableString spannableTitle = new SpannableString(title);
+        Typeface customFont = getCustomFont();
+        if (customFont != null) {
+            spannableTitle.setSpan(new CustomTypefaceSpan("", customFont), 0, title.length(), Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
+        }
+
+        Menu parentMenu = menu.addSubMenu(spannableTitle);
 
         @Nullable Drawable icon = getResourceWithName(getContext(), action.getString("icon"));
         menu.getItem(i).setIcon(icon);  // set icon to current item.
@@ -160,7 +232,14 @@ public class ContextMenuView extends ReactViewGroup implements View.OnCreateCont
         String title = action.getString("title");
         @Nullable Drawable icon = getResourceWithName(getContext(), action.getString("icon"));
 
-        MenuItem item = menu.add(Menu.NONE, Menu.NONE, i, title);
+        // Create spannable string with custom font
+        SpannableString spannableTitle = new SpannableString(title);
+        Typeface customFont = getCustomFont();
+        if (customFont != null) {
+            spannableTitle.setSpan(new CustomTypefaceSpan("", customFont), 0, title.length(), Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
+        }
+
+        MenuItem item = menu.add(Menu.NONE, Menu.NONE, i, spannableTitle);
         item.setEnabled(!action.hasKey("disabled") || !action.getBoolean("disabled"));
 
         if (action.hasKey("iconColor") && icon != null) {
@@ -172,7 +251,7 @@ public class ContextMenuView extends ReactViewGroup implements View.OnCreateCont
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 item.setIconTintList(ColorStateList.valueOf(Color.RED));
             }
-            SpannableString redTitle = new SpannableString(title);
+            SpannableString redTitle = new SpannableString(spannableTitle);
             redTitle.setSpan(new ForegroundColorSpan(Color.RED), 0, title.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             item.setTitle(redTitle);
         }
