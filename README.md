@@ -96,6 +96,9 @@ Optional. When set to `true`, the context menu is triggered with a single tap in
 
 Optional. Disable menu interaction.
 
+### `fontName`
+Optional, Android only. Custom font name to use for menu items. The font must be available in your app's font resources.
+
 ### `borderRadius`
 Optional, iOS only. Sets the border radius for all corners of the preview. Can be overridden by individual corner settings.
 

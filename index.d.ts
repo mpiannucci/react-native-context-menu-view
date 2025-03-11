@@ -120,6 +120,10 @@ export interface ContextMenuProps extends ViewProps {
    * Disable shadow in preview
    */
   disableShadow?: boolean;
+  /**
+   * Custom font name to use for menu items (Android only). The font must be available in your app's font resources.
+   */
+  fontName?: string;
 }
 
 export default class ContextMenu extends Component<ContextMenuProps> { }
