@@ -12,14 +12,14 @@ const ContextMenu = (props) => {
     borderBottomLeftRadius: -1
   };
 
-  const iconColor = props?.iconColor
-    ? Platform.OS === 'ios'
-      ? processColor(props.iconColor)
-      : props.iconColor
-    : undefined;
+  const colorConvertedActions = props?.actions?.map((action) => ({
+    ...action,
+    iconColor: Platform.OS === 'ios' && action.iconColor ? processColor(action.iconColor) : action.iconColor,
+    titleColor: Platform.OS === 'ios' && action.titleColor ? processColor(action.titleColor) : action.titleColor,
+  }));
 
   return (
-    <NativeContextMenu {...defaultProps} {...props} iconColor={iconColor}>
+    <NativeContextMenu {...defaultProps} {...props} actions={colorConvertedActions}>
       {props.children}
       {props.preview != null && Platform.OS === 'ios' ? (
         <View style={styles.preview} nativeID="ContextMenuPreview">{props.preview}</View>
