@@ -11,6 +11,7 @@
 @interface ContextMenuAction : NSObject
 
 @property (nonnull, nonatomic, copy) NSString* title;
+@property (nullable, nonatomic, copy) UIColor *titleColor;
 @property (nonnull, nonatomic, copy) NSString* subtitle;
 @property (nullable, nonatomic, copy) NSString* systemIcon;
 @property (nullable, nonatomic, copy) NSString* icon;

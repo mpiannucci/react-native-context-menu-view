@@ -208,7 +208,20 @@
         // Use system icon from SF Symbols
         iconImage = [UIImage systemImageNamed:action.systemIcon];
     }
-    
+
+    UIColor *titleColor = nil;
+    if (action.titleColor != nil) {
+        titleColor = action.titleColor;
+    } else {
+        // Default title color depends on dark mode
+        if (@available(iOS 13.0, *)) {
+            UIUserInterfaceStyle currentStyle = [UITraitCollection currentTraitCollection].userInterfaceStyle;
+            titleColor = (currentStyle == UIUserInterfaceStyleDark) ? [UIColor whiteColor] : [UIColor blackColor];
+        } else {
+            titleColor = [UIColor blackColor];
+        }
+    }
+
     if (action.actions != nil && action.actions.count > 0) {
       NSMutableArray<UIMenuElement*> *children = [[NSMutableArray alloc] init];
       [action.actions enumerateObjectsUsingBlock:^(ContextMenuAction * _Nonnull childAction, NSUInteger childIdx, BOOL * _Nonnull stop) {
@@ -255,7 +268,14 @@
         (action.disabled ? UIMenuElementAttributesDisabled : 0);
 
       actionMenuItem.state = 
-      	action.selected ? UIMenuElementStateOn : UIMenuElementStateOff;
+          action.selected ? UIMenuElementStateOn : UIMenuElementStateOff;
+
+      // Apply titleColor using attributedTitle
+      if (titleColor != nil) {
+          NSDictionary *attributes = @{NSForegroundColorAttributeName: titleColor};
+          NSAttributedString *attributedTitle = [[NSAttributedString alloc] initWithString:action.title attributes:attributes];
+          [actionMenuItem setValue:attributedTitle forKey:@"attributedTitle"];
+      }
 
       menuElement = actionMenuItem;
     }

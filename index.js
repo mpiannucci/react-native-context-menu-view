@@ -15,6 +15,7 @@ const ContextMenu = (props) => {
   const colorConvertedActions = props?.actions?.map((action) => ({
     ...action,
     iconColor: Platform.OS === 'ios' && action.iconColor ? processColor(action.iconColor) : action.iconColor,
+    titleColor: Platform.OS === 'ios' && action.titleColor ? processColor(action.titleColor) : action.titleColor,
   }));
 
   return (
