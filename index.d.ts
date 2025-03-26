@@ -12,6 +12,10 @@ export interface ContextMenuAction {
    */
   title: string;
   /**
+   * Color of the title (default: black).
+   */
+  titleColor?: string;
+  /**
    * The subtitle of the action. iOS 15+.
    */
   subtitle?: string;
@@ -126,4 +130,4 @@ export interface ContextMenuProps extends ViewProps {
   fontName?: string;
 }
 
-export default class ContextMenu extends Component<ContextMenuProps> { }
+export default class ContextMenu extends Component<ContextMenuProps> {}

@@ -14,6 +14,7 @@
     json = [self NSDictionary:json];
     ContextMenuAction* action = [[ContextMenuAction alloc] init];
     action.title = [self NSString:json[@"title"]];
+    action.titleColor = json[@"titleColor"] ? [RCTConvert UIColor:json[@"titleColor"]] : nil;
     action.subtitle = [self NSString:json[@"subtitle"]];
     action.systemIcon = [self NSString:json[@"systemIcon"]];
     action.icon = [self NSString:json[@"icon"]];
