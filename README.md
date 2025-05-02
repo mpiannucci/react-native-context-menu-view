@@ -4,7 +4,7 @@ Use native context menu functionality from React Native. On iOS 13+ this uses [`
 
 On iOS 12 and below, nothing happens. You may wish to do a `Platform.OS === 'ios' && parseInt(Platform.Version, 10) <= 12` check, and add your own `onLongPress` handler.
 
-<img src="./assets/context-menu-ios.gif" width="300">
+![preview](https://i.imgur.com/VNpVY6z.gif)
 
 ## Getting started
 
