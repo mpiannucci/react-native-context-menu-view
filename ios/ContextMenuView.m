@@ -270,8 +270,8 @@
       actionMenuItem.state = 
           action.selected ? UIMenuElementStateOn : UIMenuElementStateOff;
 
-      // Apply titleColor using attributedTitle
-      if (titleColor != nil) {
+      // Apply titleColor using attributedTitle (iOS 16+ only)
+      if (titleColor != nil && @available(iOS 16.0, *)) {
           NSDictionary *attributes = @{NSForegroundColorAttributeName: titleColor};
           NSAttributedString *attributedTitle = [[NSAttributedString alloc] initWithString:action.title attributes:attributes];
           [actionMenuItem setValue:attributedTitle forKey:@"attributedTitle"];
