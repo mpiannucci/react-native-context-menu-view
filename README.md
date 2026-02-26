@@ -60,7 +60,7 @@ Array of `{ title: string, subtitle?: string, systemIcon?: string, icon?: string
 
 - `iconColor` will change the color of the icon provided to the `icon` prop and has no effect on `systemIcon` (default: black)
 
-- `destructive` items are rendered in red (iOS only, default: false)
+- `destructive` items are rendered in red (default: false)
 
 - `selected` items have a checkmark next to them (iOS only, default: false)
 

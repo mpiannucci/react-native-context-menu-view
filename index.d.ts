@@ -32,7 +32,7 @@ export interface ContextMenuAction {
    */
   iconColor?: string;
   /**
-   * Destructive items are rendered in red on iOS, and unchanged on Android. (default: false)
+   * Destructive items are rendered in red. (default: false)
    */
   destructive?: boolean;
   /**
